@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/group1">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_tasks"
+            android:title="@string/menu_tasks" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_calendar"
+            android:title="@string/menu_calendar" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_leaderboard"
+            android:title="@string/menu_leaderboard" />
+
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/group2">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_menu_profile"
+            android:title="@string/menu_profile" />
+        <item
+            android:id="@+id/nav_messages"
+            android:icon="@drawable/ic_menu_messages"
+            android:title="@string/menu_messages" />
+        <item
+            android:id="@+id/nav_statistics"
+            android:icon="@drawable/ic_menu_statistics"
+            android:title="@string/menu_statistics" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="@string/menu_settings" />
+        <item
+            android:id="@+id/nav_social"
+            android:icon="@drawable/ic_menu_social"
+            android:title="@string/menu_social" />
+        <item
+            android:id="@+id/nav_logOut"
+            android:icon="@drawable/ic_menu_log_out"
+            android:title="@string/menu_log_out" />
+
+    </group>
+
+</menu>
