@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="65sp">
+
+    <View
+        android:background="@drawable/color_blob"
+        android:layout_width="55sp"
+        android:layout_height="55sp"
+        android:layout_marginStart="20sp"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/purple_700"
+        android:id="@+id/colorBlob"/>
+
+    <TextView
+        android:id="@+id/colorName"
+        android:layout_width="0sp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Purple"
+        android:textColor="@color/black"
+        android:textSize="22sp" />
+    <!--android:id="@+id/colorName"
+    android:id="@+id/color_spinner_name"-->
+
+
+    <TextView
+        android:textSize="22sp"
+        android:text="#000000"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:id="@+id/colorHex"
+        android:layout_width="120sp"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

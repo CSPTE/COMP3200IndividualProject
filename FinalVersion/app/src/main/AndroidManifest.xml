@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.finalversion">
 
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/ic_menu_icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_menu_icon"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.FinalVersion"
         tools:targetApi="31">
@@ -24,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name="com.example.finalversion.notification.Receiver"></receiver>
     </application>
 
 </manifest>

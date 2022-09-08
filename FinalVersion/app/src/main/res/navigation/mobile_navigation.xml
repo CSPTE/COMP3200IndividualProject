@@ -3,16 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
+    android:label="Add New Task"
     app:startDestination="@+id/nav_home">
 
     <fragment
         android:id="@+id/nav_home"
         android:name="com.example.finalversion.ui.home.HomeFragment"
         android:label="@string/menu_tasks"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_nav_home_to_newTaskSettingsFragment"
-            app:destination="@id/newTaskSettingsFragment" />
+            android:id="@+id/action_nav_home_to_blankTaskSettingsFragment"
+            app:destination="@id/blankTaskSettingsFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_subtaskSettingsFragment"
+            app:destination="@id/subtaskSettingsFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_habitSubtaskSettingsFragment"
+            app:destination="@id/habitSubtaskSettingsFragment" />
     </fragment>
 
     <fragment
@@ -27,12 +34,36 @@
         android:label="@string/menu_leaderboard"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
-        android:id="@+id/nav_profile"
-        android:name="com.example.finalversion.ui.profile.ProfileFragment"
-        android:label="@string/menu_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:id="@+id/blankTaskSettingsFragment"
+        android:name="com.example.finalversion.taskSettings.BlankTaskSettingsFragment"
+        android:label="Add A New Task"
+        tools:layout="@layout/fragment_blank_task_settings" >
+        <action
+            android:id="@+id/action_blankTaskSettingsFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
     <fragment
-        android:id="@+id/newTaskSettingsFragment"
-        android:name="com.example.finalversion.NewTaskSettingsFragment"
-        android:label="NewTaskSettingsFragment" />
+        android:id="@+id/subtaskSettingsFragment"
+        android:name="com.example.finalversion.subtaskSettings.SubtaskSettingsFragment"
+        android:label="Add A New Subtask"
+        tools:layout="@layout/fragment_subtask_settings">
+        <action
+            android:id="@+id/action_subtaskSettingsFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+        <argument
+            android:name="taskParentName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/habitSubtaskSettingsFragment"
+        android:name="com.example.finalversion.subtaskSettings.HabitSubtaskSettingsFragment"
+        android:label="Add A New Subtask"
+        tools:layout="@layout/fragment_habit_subtask_settings">
+        <action
+            android:id="@+id/action_habitSubtaskSettingsFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+        <argument
+            android:name="habitTaskParentName"
+            app:argType="string" />
+    </fragment>
 </navigation>

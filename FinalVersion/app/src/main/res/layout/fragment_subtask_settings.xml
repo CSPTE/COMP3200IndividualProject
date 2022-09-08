@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:isScrollContainer="true"
+    android:paddingLeft="@dimen/fragment_horizontal_margin"
+    android:paddingTop="@dimen/fragment_vertical_margin"
+    android:paddingRight="@dimen/fragment_horizontal_margin"
+    android:paddingBottom="@dimen/fragment_vertical_margin">
+
+    <!-- Task Name -->
+    <LinearLayout
+        android:id="@+id/subtask_name"
+        android:layout_width="348sp"
+        android:layout_height="66sp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Subtask Name"
+            android:textAlignment="textStart"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/subTaskNameInput"
+            android:layout_width="285sp"
+            android:layout_height="40sp"
+            android:hint="e.g.: Cardio"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            android:textColorHint="#757575"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <!-- Increments -->
+    <LinearLayout
+        android:id="@+id/subtask_increment"
+        android:layout_width="348sp"
+        android:layout_height="66sp"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/subtask_name">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Number Of Increments"
+            android:textAlignment="textStart"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/subTaskIncrementInput"
+            android:layout_width="285sp"
+            android:layout_height="40sp"
+            android:hint="e.g.: 11"
+            android:inputType="textEmailAddress"
+            android:selectAllOnFocus="true"
+            android:textColorHint="#757575"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/add_subtask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:text="Add Subtask"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

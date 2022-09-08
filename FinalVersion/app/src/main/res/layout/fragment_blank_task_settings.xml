@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:isScrollContainer="true"
+    android:paddingLeft="@dimen/fragment_horizontal_margin"
+    android:paddingTop="@dimen/fragment_vertical_margin"
+    android:paddingRight="@dimen/fragment_horizontal_margin"
+    android:paddingBottom="@dimen/fragment_vertical_margin">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Task Name -->
+            <LinearLayout
+                android:id="@+id/username"
+                android:layout_width="348sp"
+                android:layout_height="66sp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Task Name"
+                    android:textAlignment="textStart"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/taskNameInput"
+                    android:layout_width="285sp"
+                    android:layout_height="40sp"
+                    android:hint="e.g.: Workout"
+                    android:inputType="textEmailAddress"
+                    android:selectAllOnFocus="true"
+                    android:textColorHint="#757575"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </LinearLayout>
+
+            <!-- Increments -->
+            <LinearLayout
+                android:id="@+id/increment"
+                android:layout_width="348sp"
+                android:layout_height="66sp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/username">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Number Of Increments"
+                    android:textAlignment="textStart"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/taskIncrementInput"
+                    android:layout_width="285sp"
+                    android:layout_height="40sp"
+                    android:hint="e.g.: 11"
+                    android:inputType="textEmailAddress"
+                    android:selectAllOnFocus="true"
+                    android:textColorHint="#757575"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </LinearLayout>
+
+            <!-- Color Spinner -->
+            <LinearLayout
+                android:id="@+id/colorSelect"
+                android:layout_width="348sp"
+                android:layout_height="66sp"
+                android:layout_marginEnd="80sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/increment">
+
+                <TextView
+                    android:layout_width="120sp"
+                    android:layout_height="match_parent"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="left|center_vertical"
+                    android:text="Color"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <Spinner
+                    android:id="@+id/colorSpinner"
+                    android:layout_width="0sp"
+                    android:layout_height="50sp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="20sp"
+                    android:layout_weight="1"
+                    android:background="#000000"
+                    android:gravity="center"
+                    android:spinnerMode="dialog"
+                    android:textAlignment="center"
+                    tools:ignore="SpeakableTextPresentCheck" />
+            </LinearLayout>
+
+            <!-- Habit -->
+            <LinearLayout
+                android:id="@+id/habit_toggle"
+                android:layout_width="348sp"
+                android:layout_height="66sp"
+                android:orientation="vertical"
+                android:paddingTop="5sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/colorSelect">
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/habit_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:minWidth="40sp"
+                    android:minHeight="40sp"
+                    android:text="Habit"
+                    android:textAlignment="textStart"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:key="habit"
+                    app:title="Habitual"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elegantTextHeight="false"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="start"
+                    android:text="Turn on if this is NOT a one time activity"
+                    android:textColor="#757575"
+                    android:textSize="15sp"
+                    app:summary="@string/habit_repeat" />
+            </LinearLayout>
+
+            <!-- Days -->
+            <LinearLayout
+                android:id="@+id/habit_select"
+                android:layout_width="348sp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/habit_toggle"
+                tools:context=".BlankTaskSettingsFragment"
+                tools:ignore="HardcodedText">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="When You Wish To Do This Activity"
+                    android:textAlignment="textStart"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elegantTextHeight="false"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="start"
+                    android:text="Fill out if 'Habit' turned ON"
+                    android:textColor="#757575"
+                    android:textSize="15sp"
+                    app:summary="@string/habit_repeat" />
+
+                <Button
+                    android:id="@+id/openAlertDialogButton"
+                    android:layout_width="256sp"
+                    android:layout_height="60sp"
+                    android:layout_gravity="left"
+                    android:backgroundTint="?android:attr/textColorPrimary"
+                    android:text="Select Days"
+                    android:textColor="?android:attr/textColorPrimaryInverse"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/selectedItemPreview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:textColor="#757575"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <!-- Notification -->
+            <!--
+            <LinearLayout
+                android:id="@+id/notification_select"
+                android:layout_width="348sp"
+                android:layout_height="66sp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/habit_select">
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/notification_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:minWidth="40sp"
+                    android:minHeight="40sp"
+                    android:text="Notifications"
+                    android:textAlignment="textStart"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:key="notification"
+                    app:title="Habitual"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elegantTextHeight="false"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="start"
+                    android:text="Would you like to be reminded to do this activity?"
+                    android:textColor="#757575"
+                    android:textSize="15sp"
+                    app:summary="@string/habit_repeat" />
+            </LinearLayout>
+            -->
+
+            <!-- Notification Time -->
+            <!--
+            <LinearLayout
+                android:id="@+id/notification_time_item"
+                android:layout_width="348sp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/notification_select">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Time Of Notification"
+                    android:textAlignment="textStart"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:elegantTextHeight="false"
+                    android:fontFamily="sans-serif-light"
+                    android:gravity="start"
+                    android:text="Fill out if 'Notifications' turned ON"
+                    android:textColor="#757575"
+                    android:textSize="15sp"
+                    app:summary="@string/habit_repeat" />
+
+                <EditText
+                    android:id="@+id/notification_time"
+                    android:layout_width="285sp"
+                    android:layout_height="40sp"
+                    android:hint="e.g.: 13:15"
+                    android:inputType="textEmailAddress"
+                    android:selectAllOnFocus="true"
+                    android:textColorHint="#757575"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </LinearLayout>
+            -->
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/add_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:text="Add Task"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- app:layout_constraintTop_toBottomOf="@+id/notification_time_item" -->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<merge xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/task_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5sp">
+
+
+
+    <ProgressBar
+        android:id="@+id/taskProgressBar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="55sp"
+        android:background="@drawable/border"
+        android:progress="20"
+        android:progressBackgroundTint="@color/white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="55sp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="@+id/taskProgressBar"
+        app:layout_constraintRight_toRightOf="@+id/taskProgressBar"
+        app:layout_constraintTop_toBottomOf="@+id/taskProgressBar"
+        app:layout_constraintTop_toTopOf="@+id/taskProgressBar">
+
+        <ImageButton
+            android:id="@+id/minusButton"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10sp"
+            android:background="@drawable/rounded_button"
+            android:radius="10dp"
+            android:src="@drawable/ic_menu_remove_circleless"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/taskNameTextView"
+            android:layout_width="0sp"
+            android:layout_height="55sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Alma (1/5)"
+            android:shadowColor="@color/white"
+            android:shadowRadius="8"
+            android:textColor="@color/black"
+            android:autoSizeTextType="uniform" />
+
+        <ImageButton
+            android:id="@+id/plusButton"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10sp"
+            android:background="@drawable/rounded_button"
+            android:radius="10dp"
+            android:src="@drawable/ic_menu_add"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/subtaskLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="5sp"
+        android:paddingStart="50sp"
+        app:layout_constraintTop_toBottomOf="@+id/taskProgressBar">
+
+        <!--
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="55sp"
+            android:text="@string/add_new_subtask"
+            android:background="@drawable/border"
+            android:textSize="20sp" />
+            -->
+
+    </LinearLayout>
+
+
+    <!--
+    app:layout_constraintLeft_toLeftOf="@+id/task_progress_bar"
+        app:layout_constraintRight_toRightOf="@+id/task_progress_bar"
+        app:layout_constraintTop_toTopOf="@+id/task_progress_bar"
+    -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</merge>
