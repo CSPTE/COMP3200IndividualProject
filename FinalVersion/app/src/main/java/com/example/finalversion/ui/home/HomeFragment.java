@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
             for (int i = 0; i < files.length; ++i) {
                 File file = files[i];
                 String fileName = file.getName() + ".txt";
-                if (fileName.matches(".*Task.txt")){
+                if ((fileName.matches(".*Task.txt")) || (fileName.matches(".*FutureTakk.txt"))){
                     //foundFiles.append(fileName);
                     try {
                         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -152,6 +152,7 @@ public class HomeFragment extends Fragment {
                         boolean habitToggle = false;
                         ArrayList<String> habitDays = new ArrayList<String>();
                         String fileLastCompleted = null;
+                        String dateOfFutureTask = null;
                         //read each line
                         while (line != null) {
                             if (line.matches("Task name =.*")){
@@ -179,6 +180,9 @@ public class HomeFragment extends Fragment {
                                 if (value.length > 1){
                                     fileLastCompleted = value[1];
                                 }
+                            } else if (line.matches("Date Of Task=.*")){
+                                String[] value = line.split("=");
+                                dateOfFutureTask = value[1];
                             }
                             line = br.readLine();
                         }
@@ -218,19 +222,54 @@ public class HomeFragment extends Fragment {
                                 }
                             }
                         } else {
-                            TaskComponent newTask = new TaskComponent(homeContext, taskName, taskColor, taskIncrement);
-                            tasksLayout.addView(newTask);
-                            tasks.add(newTask);
-                            newTask.getButton().setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    String sendText = newTask.getTaskName();
-                                    HomeFragmentDirections.ActionNavHomeToSubtaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToSubtaskSettingsFragment(sendText);
-                                    NavHostFragment.findNavController(HomeFragment.this).navigate(action);
-                                    //NavHostFragment.findNavController(HomeFragment.this)
-                                    //        .navigate(R.id.action_nav_home_to_subtaskSettingsFragment);
+                            if (dateOfFutureTask != null){
+                                SimpleDateFormat day = new SimpleDateFormat("dd-M-yyyy");
+                                Date date = new Date();
+                                String currentDate = day.format(date);
+
+                                SimpleDateFormat day2 = new SimpleDateFormat("dd");
+                                Date date2 = new Date();
+                                String currentDay = day2.format(date2);
+                                SimpleDateFormat month = new SimpleDateFormat("M");
+                                Date date3 = new Date();
+                                String currentMonth = month.format(date3);
+                                SimpleDateFormat year = new SimpleDateFormat("yyyy");
+                                Date date4 = new Date();
+                                String currentYear = year.format(date4);
+                                String[] splitter = dateOfFutureTask.split("-");
+
+                                if(currentDate.equals(dateOfFutureTask)){
+                                    TaskComponent newTask = new TaskComponent(homeContext, taskName, taskColor, taskIncrement);
+                                    tasksLayout.addView(newTask);
+                                    tasks.add(newTask);
+                                    newTask.getButton().setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            String sendText = newTask.getTaskName();
+                                            HomeFragmentDirections.ActionNavHomeToSubtaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToSubtaskSettingsFragment(sendText);
+                                            NavHostFragment.findNavController(HomeFragment.this).navigate(action);
+                                        }
+                                    });
+                                } if((Integer.parseInt(splitter[2]) < Integer.parseInt(currentYear)) ||
+                                        ((Integer.parseInt(splitter[2]) == Integer.parseInt(currentYear)) && (Integer.parseInt(splitter[1]) < Integer.parseInt(currentMonth))) ||
+                                        ((Integer.parseInt(splitter[2]) == Integer.parseInt(currentYear)) && (Integer.parseInt(splitter[1]) == Integer.parseInt(currentMonth)) && (Integer.parseInt(splitter[0]) < Integer.parseInt(currentDay)))) {
+                                    deleteFutureTask(homeContext.getFilesDir(), taskName);
                                 }
-                            });
+                            } else {
+                                TaskComponent newTask = new TaskComponent(homeContext, taskName, taskColor, taskIncrement);
+                                tasksLayout.addView(newTask);
+                                tasks.add(newTask);
+                                newTask.getButton().setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        String sendText = newTask.getTaskName();
+                                        HomeFragmentDirections.ActionNavHomeToSubtaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToSubtaskSettingsFragment(sendText);
+                                        NavHostFragment.findNavController(HomeFragment.this).navigate(action);
+                                        //NavHostFragment.findNavController(HomeFragment.this)
+                                        //        .navigate(R.id.action_nav_home_to_subtaskSettingsFragment);
+                                    }
+                                });
+                            }
                         }
                         br.close();
                     } catch (IOException e) {
@@ -240,5 +279,21 @@ public class HomeFragment extends Fragment {
             }
         }
         //tv.setText(foundFiles);
+    }
+
+    private void deleteFutureTask(File dir, String taskText){
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches(taskText +"FutureTakk.txt")) {
+                    boolean isItDeleted = file.delete();
+                }
+                if (fileName.matches(".*" + taskText +"Subtazk.txt")){
+                    boolean isItDeleted = file.delete();
+                }
+            }
+        }
     }
 }

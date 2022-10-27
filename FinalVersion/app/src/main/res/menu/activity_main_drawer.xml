@@ -23,18 +23,20 @@
     <group android:checkableBehavior="single"
         android:id="@+id/group2">
         <item
-            android:id="@+id/nav_statistics"
+            android:id="@+id/nav_settings"
             android:icon="@drawable/ic_menu_statistics"
             android:title="@string/menu_statistics" />
         <item
-            android:id="@+id/nav_settings"
+            android:id="@+id/nav_statistics"
             android:icon="@drawable/ic_menu_dark_mode"
             android:title="@string/menu_settings" />
-
+        <!--
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_menu_profile"
             android:title="@string/menu_profile" />
+            -->
+        <!--
         <item
             android:id="@+id/nav_messages"
             android:icon="@drawable/ic_menu_messages"
@@ -47,6 +49,7 @@
             android:id="@+id/nav_logOut"
             android:icon="@drawable/ic_menu_log_out"
             android:title="@string/menu_log_out" />
+            -->
 
     </group>
 

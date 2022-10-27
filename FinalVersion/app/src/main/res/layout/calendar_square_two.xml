@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:id="@+id/firstHalf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="49"
+            android:background="@drawable/calendar_square_two_left"
+            android:backgroundTint="@color/Orange"
+            android:layout_marginTop="2sp"
+            android:layout_marginBottom="2sp"
+            android:layout_marginStart="2sp"
+            tools:ignore="Orientation">
+        </LinearLayout>
+        <View
+            android:layout_width="2sp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="?android:attr/textColorPrimary" />
+        <LinearLayout
+            android:id="@+id/secondHalf"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="49"
+            android:background="@drawable/calendar_square_two_right"
+            android:backgroundTint="@color/teal_200"
+            android:layout_marginTop="2sp"
+            android:layout_marginBottom="2sp"
+            android:layout_marginEnd="2sp"
+            tools:ignore="Orientation">
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

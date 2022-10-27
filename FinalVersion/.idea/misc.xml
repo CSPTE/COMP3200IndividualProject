@@ -16,11 +16,37 @@
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable-anydpi/ic_menu_statistics.xml" value="0.162" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable-anydpi/ic_menu_tasks.xml" value="0.2265" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2265" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable-v25/calendar_day_current.xml" value="0.1305" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/add_new_subtask_button.xml" value="0.162" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/border.xml" value="0.162" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_a.xml" value="0.1305" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_border.xml" value="0.1305" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_day_current.xml" value="0.1305" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square.xml" value="0.1305" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_four_bottomleft.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_four_bottomright.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_four_topleft.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_four_topright.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_future.xml" value="0.165" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_one_whole.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_bottom.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_bottom1.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_center.xml" value="0.137" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_center2.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_left.xml" value="0.137" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_left1.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_left2.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_right.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_right1.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_right2.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_top.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_three_whole.xml" value="0.143" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_two_left.xml" value="0.1305" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_square_two_right.xml" value="0.1305" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/color_blob.xml" value="0.2265" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/color_selector.xml" value="0.2265" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/custom_spinner_adaptor.xml" value="0.2265" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/experiment.xml" value="0.143" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/ic_baseline_remove_24.xml" value="0.162" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/ic_launche_icon.xml" value="0.162" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2265" />
@@ -31,23 +57,35 @@
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/list-check_24.xml" value="0.2265" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/rounded_button.xml" value="0.162" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/side_nav_bar.xml" value="0.2265" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/aa.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/add_new_subtask_button.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/app_bar_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/calendar_cell.xml" value="0.18984375" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/calendar_square_four.xml" value="0.2222222222222222" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/calendar_square_one.xml" value="0.2059071729957806" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/calendar_square_three.xml" value="0.25025641025641027" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/calendar_square_two.xml" value="0.2" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/color_box_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/color_selector_bg.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/color_selector_item.xml" value="0.1721311475409836" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/color_spinner_bg.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/color_spinner_item.xml" value="0.2076923076923077" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/content_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/custom_spinner_adapter.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/experiment.xml" value="0.253125" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/experimental.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/experimenting.xml" value="0.253125" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_add_new_task_login.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_blank_task_settings.xml" value="0.25" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_futuretask_settings.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_gallery.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_habit_subtask_settings.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_home.xml" value="0.25025641025641027" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_login.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_profile.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_slideshow.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_statistics.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_subtask_settings.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/nav_header_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/repeating_activity_layout.xml" value="0.190625" />

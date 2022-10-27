@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/calendar_border"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cellDayText"
+        android:text="1"
+        android:textSize="15sp"
+        android:textColor="?android:attr/textColorPrimary"
+        android:paddingTop="3sp"
+        android:paddingBottom="3sp"
+        android:paddingStart="5sp"
+        android:paddingEnd="5sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        tools:ignore="RtlSymmetry" />
+
+    <LinearLayout
+        android:id="@+id/boxyBox"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="25sp"
+        android:layout_marginBottom="5sp"
+        android:layout_marginStart="5sp"
+        android:layout_marginEnd="5sp"
+        app:layout_constraintTop_toBottomOf="@+id/cellDayText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:orientation="vertical" />
+
+    <!-- android:background="@drawable/calendar_square" -->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

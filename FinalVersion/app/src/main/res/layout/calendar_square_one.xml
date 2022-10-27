@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="2sp"
+    android:layout_marginBottom="2sp"
+    android:layout_marginStart="2sp"
+    android:layout_marginEnd="2sp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/fullCircle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/calendar_square_one_whole"
+        android:backgroundTint="@color/Orange"
+        tools:ignore="Orientation">
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

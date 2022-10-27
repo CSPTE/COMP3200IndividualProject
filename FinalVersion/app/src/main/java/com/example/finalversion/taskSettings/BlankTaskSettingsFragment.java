@@ -82,8 +82,6 @@ public class BlankTaskSettingsFragment extends Fragment {
         spinner.setOnItemSelectedListener(selectedItemListener);
 
 
-
-
         //Day Selector
         Button bOpenAlertDialog = view.findViewById(R.id.openAlertDialogButton);
         final TextView tvSelectedItemsPreview = view.findViewById(R.id.selectedItemPreview);
@@ -190,6 +188,9 @@ public class BlankTaskSettingsFragment extends Fragment {
                     //TODO: Quick lookup for naming scheme
                     //Task Naming scheme: WorkoutTask.txt
                     //Subtask Naming scheme: WorkoutSitupsSubtazk.txt
+                    //CalendarSelectedHabits: TrackedHabits.txt
+                    //LogFile Naming scheme: WorkoutLog.txt
+                    //FutureTask Naming scheme: WorkoutFuturetakk.txt
 
                     String fileName = taskName + "Task";
                     StringBuilder fileBody = new StringBuilder();
@@ -211,6 +212,18 @@ public class BlankTaskSettingsFragment extends Fragment {
                             e.printStackTrace();
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }
+
+                        if(taskHabitToggle){
+                            String logFileName = taskName + "Log";
+                            String logFileBody = "FullLog";
+                            try (FileOutputStream fosl = cont.openFileOutput(logFileName, Context.MODE_PRIVATE)) {
+                                fosl.write(logFileBody.getBytes(StandardCharsets.UTF_8));
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
 
                         NavHostFragment.findNavController(BlankTaskSettingsFragment.this)

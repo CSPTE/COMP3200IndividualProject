@@ -23,7 +23,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="Purple"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="22sp" />
     <!--android:id="@+id/colorName"
     android:id="@+id/color_spinner_name"-->
@@ -33,7 +33,7 @@
         android:textSize="22sp"
         android:text="#000000"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="?android:attr/textColorPrimary"
         android:id="@+id/colorHex"
         android:layout_width="120sp"
         android:layout_height="match_parent" />

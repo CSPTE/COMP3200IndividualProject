@@ -26,7 +26,11 @@
         android:id="@+id/nav_gallery"
         android:name="com.example.finalversion.ui.gallery.GalleryFragment"
         android:label="@string/menu_calendar"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_nav_gallery_to_futuretaskSettingsFragment"
+            app:destination="@id/futuretaskSettingsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
@@ -66,4 +70,21 @@
             android:name="habitTaskParentName"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/futuretaskSettingsFragment"
+        android:name="com.example.finalversion.futuretaskSettings.FuturetaskSettingsFragment"
+        android:label="Add A New Future Task"
+        tools:layout="@layout/fragment_futuretask_settings">
+        <action
+            android:id="@+id/action_futuretaskSettingsFragment_to_nav_gallery"
+            app:destination="@id/nav_gallery" />
+        <argument
+            android:name="dateOfTask"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.finalversion.ui.statistics.StatisticsFragment"
+        android:label="@string/menu_statistics"
+        tools:layout="@layout/fragment_statistics" />
 </navigation>

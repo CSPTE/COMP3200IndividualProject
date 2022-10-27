@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="2sp"
+    android:layout_marginBottom="2sp"
+    android:layout_marginStart="2sp"
+    android:layout_marginEnd="2sp">
+
+    <!--
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:id="@+id/firstThird"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="32"
+            android:background="@drawable/calendar_square_three_left"
+            android:backgroundTint="@color/Orange"
+            android:layout_marginTop="2sp"
+            android:layout_marginBottom="2sp"
+            tools:ignore="Orientation">
+        </LinearLayout>
+        <View
+            android:layout_width="2sp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@android:color/black" />
+        <LinearLayout
+            android:id="@+id/secondThird"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="@drawable/calendar_square_three_center"
+            android:backgroundTint="@color/teal_200"
+            tools:ignore="Orientation">
+        </LinearLayout>
+        <View
+            android:layout_width="2sp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/black" />
+        <LinearLayout
+            android:id="@+id/thirdThird"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="32"
+            android:background="@drawable/calendar_square_three_right"
+            android:backgroundTint="@color/Azure"
+            android:layout_marginTop="2sp"
+            android:layout_marginBottom="2sp"
+            tools:ignore="Orientation">
+        </LinearLayout>
+
+    </LinearLayout>
+    -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:weightSum="100"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="49"
+            android:weightSum="100">
+
+            <LinearLayout
+                android:id="@+id/firstThird"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="49"
+                android:background="@drawable/calendar_square_four_topleft"
+                android:backgroundTint="@color/Orange"
+                tools:ignore="Orientation">
+            </LinearLayout>
+            <View
+                android:layout_width="2sp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="?android:attr/textColorPrimary" />
+            <LinearLayout
+                android:id="@+id/secondThird"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="49"
+                android:background="@drawable/calendar_square_four_topright"
+                android:backgroundTint="@color/teal_200"
+                tools:ignore="Orientation">
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2sp"
+            android:layout_weight="1"
+            android:background="?android:attr/textColorPrimary" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="49">
+
+            <LinearLayout
+                android:id="@+id/thirdThird"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/calendar_square_three_bottom"
+                android:backgroundTint="@color/Yellow"
+                tools:ignore="Orientation">
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

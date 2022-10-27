@@ -127,6 +127,7 @@ public class TaskComponent extends ConstraintLayout {
                             resetTask();
                             currentProgressPercentage = 0;
                             updateTaskFile(homeTaskbarContext.getFilesDir());
+                            updateLogFile(homeTaskbarContext.getFilesDir());
                         } else {
                             deleteTask(homeTaskbarContext.getFilesDir());
                             bigConstraintLayout.removeAllViews();
@@ -174,8 +175,8 @@ public class TaskComponent extends ConstraintLayout {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         deleteTask(homeTaskbarContext.getFilesDir());
+                        deleteLogFile(homeTaskbarContext.getFilesDir());
                         bigConstraintLayout.removeAllViews();
-
                     }
                 });
                 delete.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -276,7 +277,7 @@ public class TaskComponent extends ConstraintLayout {
             for (int i = 0; i < files.length; ++i) {
                 File file = files[i];
                 String fileName = file.getName() + ".txt";
-                if (fileName.matches(taskText +"Task.txt")){
+                if ((fileName.matches(taskText +"Task.txt")) || (fileName.matches(taskText +"FutureTakk.txt"))){
                     try {
                         BufferedReader br = new BufferedReader(new FileReader(file));
                         String line = br.readLine();
@@ -311,7 +312,7 @@ public class TaskComponent extends ConstraintLayout {
             for (int i = 0; i < files.length; ++i) {
                 File file = files[i];
                 String fileName = file.getName() + ".txt";
-                if (fileName.matches(taskText +"Task.txt")){
+                if ((fileName.matches(taskText +"Task.txt")) || (fileName.matches(taskText +"FutureTakk.txt"))){
                     boolean isItDeleted = file.delete();
                 }
                 if (fileName.matches(".*" + taskText +"Subtazk.txt")){
@@ -479,6 +480,7 @@ public class TaskComponent extends ConstraintLayout {
                     resetTask();
                     currentProgressPercentage = 0;
                     updateTaskFile(homeTaskbarContext.getFilesDir());
+                    updateLogFile(homeTaskbarContext.getFilesDir());
                 } else {
                     deleteTask(homeTaskbarContext.getFilesDir());
                     bigConstraintLayout.removeAllViews();
@@ -629,6 +631,55 @@ public class TaskComponent extends ConstraintLayout {
                     } catch (IOException e) {
                         Log.d("Exception",e.toString());
                     }
+                }
+            }
+        }
+    }
+
+    private void updateLogFile(File dir){
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches(taskText +"Log.txt")){
+                    try {
+                        BufferedReader br = new BufferedReader(new FileReader(file));
+                        String line = br.readLine();
+
+                        StringBuilder sb = new StringBuilder();
+                        //read each line
+                        while (line != null) {
+                            sb.append(line + "\n");
+                            line = br.readLine();
+                        }
+                        //append current date
+                        SimpleDateFormat taskSimpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                        Date taskDate = new Date();
+                        String currentDate = taskSimpleDateFormat.format(taskDate);
+                        sb.append(currentDate + "\n");
+
+                        br.close();
+                        String output = sb.toString();
+                        FileOutputStream fos = new FileOutputStream(file);
+                        fos.write(output.getBytes(StandardCharsets.UTF_8));
+                        fos.close();
+                    } catch (IOException e) {
+                        Log.d("Exception",e.toString());
+                    }
+                }
+            }
+        }
+    }
+
+    private void deleteLogFile(File dir){
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches(taskText +"Log.txt")){
+                    boolean isItDeleted = file.delete();
                 }
             }
         }

@@ -123,7 +123,6 @@ public class HabitSubtaskSettingsFragment extends Fragment {
         });
 
         //Done Button
-        //TODO
         EditText nameEditText = view.findViewById(R.id.habitSubTaskNameInput);
         EditText incrementEditText = view.findViewById(R.id.habitSubTaskIncrementInput);
         TextView selectedDaysTextView = view.findViewById(R.id.selectedItemPreviewSubtask);

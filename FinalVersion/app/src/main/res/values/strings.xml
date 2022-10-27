@@ -26,4 +26,6 @@
     <string name="habit_repeat">Which days do you want to do this activity</string>
     <string name="habit_text">Which Days Would You Like To Do This Activity</string>
     <string name="add_new_subtask">Add New Subtask</string>
+    <string name="backArrow"><![CDATA[<-]]></string>
+    <string name="forwardArrow"><![CDATA[->]]></string>
 </resources>
