@@ -501,14 +501,17 @@ public class GalleryFragment extends Fragment implements CalendarAdapter.OnItemL
     @RequiresApi(api = Build.VERSION_CODES.O)
     private ArrayList<String> getColorsIfCompleted(String textExists, ArrayList<String> passHabits, HashMap<String, String> habitColors){
         ArrayList<String> colorsToPass = new ArrayList<String>();
+        SimpleDateFormat simpleDay = new SimpleDateFormat("dd");
+        Date simpleDate = new Date();
+        String simpleDayOfMonth = simpleDay.format(simpleDate);
         for(String habit : passHabits){
-            colorsToPass.add(getTransparency(galleryContext.getFilesDir(), habit, habitColors.get(habit), textExists));
+            colorsToPass.add(getTransparency(galleryContext.getFilesDir(), habit, habitColors.get(habit), textExists, simpleDayOfMonth));
         }
         return colorsToPass;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private String getTransparency(File dir, String taskText, String color, String dayText){
+    private String getTransparency(File dir, String taskText, String color, String dayText, String simpleDayOfMonth){
         File[] files = dir.listFiles();
         String finalColor = null;
         if (files != null) {
@@ -520,11 +523,12 @@ public class GalleryFragment extends Fragment implements CalendarAdapter.OnItemL
                         BufferedReader br = new BufferedReader(new FileReader(file));
                         String line = br.readLine();
                         String dayTested = dayText + "-" + monthFromDate(selectedDate) + "-" + yearFromDate(selectedDate);
+                        String simpleDayTested = simpleDayOfMonth + "-" + monthFromDate(selectedDate) + "-" + yearFromDate(selectedDate);
                         //read each line
                         boolean dayFound = false;
                         //read each line
                         while (line != null) {
-                            if (line.matches(dayTested)){
+                            if ((line.matches(dayTested)) || (line.matches(simpleDayTested))){
                                 dayFound = true;
                             }
                             line = br.readLine();

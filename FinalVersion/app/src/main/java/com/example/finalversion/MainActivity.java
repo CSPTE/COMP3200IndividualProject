@@ -2,9 +2,11 @@ package com.example.finalversion;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,16 +22,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.finalversion.databinding.ActivityMainBinding;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private Context mainContext;
 
     private MenuItem darkMode;
+    private String currentAppTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mainContext = this;
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -42,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
         Menu menu = navigationView.getMenu();
         darkMode = menu.findItem(R.id.nav_statistics);
 
+        createThemeFile("Light");
+        readAppTheme(mainContext.getFilesDir());
+        if (currentAppTheme.equals("Dark")){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         darkMode.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -50,10 +71,12 @@ public class MainActivity extends AppCompatActivity {
                     case Configuration.UI_MODE_NIGHT_NO:
                         // Night mode is not active on device
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        updateAppTheme(mainContext.getFilesDir(), "Dark");
                         break;
                     case Configuration.UI_MODE_NIGHT_YES:
                         // Night mode is active on device
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        updateAppTheme(mainContext.getFilesDir(), "Light");
                         break;
                 }
                 return false;
@@ -94,6 +117,62 @@ public class MainActivity extends AppCompatActivity {
             channel.setDescription(description);
             NotificationManager notificationManager = MainActivity.this.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+    private void createThemeFile(String fileBodyString){
+        File themeFile = new File(mainContext.getFilesDir(), "AppTheme");
+        if (!themeFile.exists()) {
+            try (FileOutputStream fos = mainContext.openFileOutput("AppTheme", Context.MODE_PRIVATE)) {
+                fos.write(fileBodyString.getBytes(StandardCharsets.UTF_8));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void updateAppTheme(File dir, String fileBodyString){
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches("AppTheme.txt")){
+                    try {
+                        FileOutputStream fos = new FileOutputStream(file);
+                        fos.write(fileBodyString.getBytes(StandardCharsets.UTF_8));
+                        fos.close();
+                    } catch (IOException e) {
+                        Log.d("Exception",e.toString());
+                    }
+                }
+            }
+        }
+    }
+
+    private void readAppTheme(File dir){
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches("AppTheme.txt")){
+                    try {
+                        BufferedReader br = new BufferedReader(new FileReader(file));
+                        String line = br.readLine();
+                        //read each line
+                        while (line != null) {
+                            currentAppTheme = line;
+                            line = br.readLine();
+                        }
+                        br.close();
+                    } catch (IOException e) {
+                        Log.d("Exception",e.toString());
+                    }
+                }
+            }
         }
     }
 }
