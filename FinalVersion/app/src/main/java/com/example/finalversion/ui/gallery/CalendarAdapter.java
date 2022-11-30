@@ -36,7 +36,6 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     private ArrayList<String> tasksSelected = new ArrayList<String>();
     private HashMap<String, String> habitColors = new HashMap<>();
     private boolean habitsAreSelected = true;
-    private String simpleDayOfMonth;
 
     public CalendarAdapter(ArrayList<String> daysOfMonth, OnItemListener onItemListener, HashMap<String, ArrayList<String>> alma, Context korte, String barack)
     {
@@ -76,9 +75,6 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position)
     {
         holder.dayOfMonth.setText(daysOfMonth.get(position));
-        SimpleDateFormat simpleDay = new SimpleDateFormat("dd");
-        Date simpleDate = new Date();
-        simpleDayOfMonth = simpleDay.format(simpleDate);
 
         //set color box border on existing days
         colorful = holder.itemView.findViewById(R.id.boxyBox);
@@ -372,6 +368,7 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
                         BufferedReader br = new BufferedReader(new FileReader(file));
                         String line = br.readLine();
                         String dayTested = holdUp.dayOfMonth.getText().toString() + "-" + thisMonthInt + "-" + thisYear;
+                        String simpleDayOfMonth = "0" + holdUp.dayOfMonth.getText().toString();
                         String simpleDayTested = simpleDayOfMonth + "-" + thisMonthInt + "-" + thisYear;
                         System.out.println(dayTested);
                         boolean dayFound = false;

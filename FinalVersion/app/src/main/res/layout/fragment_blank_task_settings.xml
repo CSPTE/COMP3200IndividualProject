@@ -39,7 +39,7 @@
                     android:text="Task Name"
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -72,7 +72,7 @@
                     android:text="Number Of Increments"
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -105,7 +105,7 @@
                     android:gravity="left|center_vertical"
                     android:text="Color"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -142,7 +142,7 @@
                     android:minHeight="40sp"
                     android:text="Habit"
                     android:textAlignment="textStart"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     app:key="habit"
                     app:title="Habitual"
@@ -156,7 +156,7 @@
                     android:gravity="start"
                     android:text="Turn on if this is NOT a one time activity"
                     android:textColor="#757575"
-                    android:textSize="15sp"
+                    android:textSize="17sp"
                     app:summary="@string/habit_repeat" />
             </LinearLayout>
 
@@ -178,7 +178,7 @@
                     android:text="When You Wish To Do This Activity"
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -189,7 +189,7 @@
                     android:gravity="start"
                     android:text="Fill out if 'Habit' turned ON"
                     android:textColor="#757575"
-                    android:textSize="15sp"
+                    android:textSize="17sp"
                     app:summary="@string/habit_repeat" />
 
                 <Button
@@ -208,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:textColor="#757575"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <!-- Notification -->
@@ -231,7 +231,7 @@
                     android:minHeight="40sp"
                     android:text="Notifications"
                     android:textAlignment="textStart"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     app:key="notification"
                     app:title="Habitual"
@@ -245,7 +245,7 @@
                     android:gravity="start"
                     android:text="Would you like to be reminded to do this activity?"
                     android:textColor="#757575"
-                    android:textSize="15sp"
+                    android:textSize="17sp"
                     app:summary="@string/habit_repeat" />
             </LinearLayout>
             -->
@@ -267,7 +267,7 @@
                     android:text="Time Of Notification"
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -278,7 +278,7 @@
                     android:gravity="start"
                     android:text="Fill out if 'Notifications' turned ON"
                     android:textColor="#757575"
-                    android:textSize="15sp"
+                    android:textSize="17sp"
                     app:summary="@string/habit_repeat" />
 
                 <EditText

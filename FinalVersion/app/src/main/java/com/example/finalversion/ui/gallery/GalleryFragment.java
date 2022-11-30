@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,8 +25,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.finalversion.R;
 import com.example.finalversion.databinding.FragmentGalleryBinding;
-import com.example.finalversion.ui.home.HomeFragment;
-import com.example.finalversion.ui.home.HomeFragmentDirections;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -113,7 +110,7 @@ public class GalleryFragment extends Fragment implements CalendarAdapter.OnItemL
             public void onClick(View v) {
                 tvSelectedItemsPreview.setText(null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(galleryContext);
-                builder.setTitle("Select Days");
+                builder.setTitle("Select Habits");
                 builder.setIcon(R.drawable.ic_menu_calendar);
 
                 builder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
@@ -501,17 +498,14 @@ public class GalleryFragment extends Fragment implements CalendarAdapter.OnItemL
     @RequiresApi(api = Build.VERSION_CODES.O)
     private ArrayList<String> getColorsIfCompleted(String textExists, ArrayList<String> passHabits, HashMap<String, String> habitColors){
         ArrayList<String> colorsToPass = new ArrayList<String>();
-        SimpleDateFormat simpleDay = new SimpleDateFormat("dd");
-        Date simpleDate = new Date();
-        String simpleDayOfMonth = simpleDay.format(simpleDate);
         for(String habit : passHabits){
-            colorsToPass.add(getTransparency(galleryContext.getFilesDir(), habit, habitColors.get(habit), textExists, simpleDayOfMonth));
+            colorsToPass.add(getTransparency(galleryContext.getFilesDir(), habit, habitColors.get(habit), textExists));
         }
         return colorsToPass;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private String getTransparency(File dir, String taskText, String color, String dayText, String simpleDayOfMonth){
+    private String getTransparency(File dir, String taskText, String color, String dayText){
         File[] files = dir.listFiles();
         String finalColor = null;
         if (files != null) {
@@ -523,6 +517,7 @@ public class GalleryFragment extends Fragment implements CalendarAdapter.OnItemL
                         BufferedReader br = new BufferedReader(new FileReader(file));
                         String line = br.readLine();
                         String dayTested = dayText + "-" + monthFromDate(selectedDate) + "-" + yearFromDate(selectedDate);
+                        String simpleDayOfMonth = "0" + dayText;
                         String simpleDayTested = simpleDayOfMonth + "-" + monthFromDate(selectedDate) + "-" + yearFromDate(selectedDate);
                         //read each line
                         boolean dayFound = false;

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.finalversion.R;
 
@@ -44,12 +45,14 @@ public class SubtaskComponent extends ConstraintLayout {
     String parentName;
     TaskComponent papa;
 
+    private HomeFragment hf;
+
     public SubtaskComponent(Context context) {
         super(context);
         init(context);
     }
 
-    public SubtaskComponent(Context context, String name, String color, String increment, boolean habit, String parent, TaskComponent tc) {
+    public SubtaskComponent(Context context, String name, String color, String increment, boolean habit, String parent, TaskComponent tc, HomeFragment frag) {
         super(context);
         homeSubtaskbarContext = context;
         taskText = name;
@@ -58,6 +61,7 @@ public class SubtaskComponent extends ConstraintLayout {
         isHabit = habit;
         parentName = parent;
         papa = tc;
+        hf = frag;
         initWithParameters(context);
     }
 
@@ -124,7 +128,7 @@ public class SubtaskComponent extends ConstraintLayout {
             @Override
             public boolean onLongClick(View view) {
                 AlertDialog.Builder delete = new AlertDialog.Builder(cont);
-                delete.setTitle("Delete Subtask");
+                delete.setTitle("Delete Or Edit Subtask");
                 delete.setMessage("Are you sure you want to delete this task?");
                 delete.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @SuppressLint("SetTextI18n")
@@ -138,6 +142,20 @@ public class SubtaskComponent extends ConstraintLayout {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                    }
+                });
+                delete.setNeutralButton("Edit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean edit = true;
+                        String previousName = taskText;
+                        if (isHabit){
+                            HomeFragmentDirections.ActionNavHomeToHabitSubtaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToHabitSubtaskSettingsFragment(parentName, edit, previousName);
+                            NavHostFragment.findNavController(hf).navigate(action);
+                        } else {
+                            HomeFragmentDirections.ActionNavHomeToSubtaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToSubtaskSettingsFragment(parentName, edit, previousName);
+                            NavHostFragment.findNavController(hf).navigate(action);
+                        }
                     }
                 });
                 delete.create();

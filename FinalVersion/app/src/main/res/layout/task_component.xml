@@ -85,7 +85,7 @@
             android:layout_height="55sp"
             android:text="@string/add_new_subtask"
             android:background="@drawable/border"
-            android:textSize="20sp" />
+            android:textSize="17sp" />
             -->
 
     </LinearLayout>

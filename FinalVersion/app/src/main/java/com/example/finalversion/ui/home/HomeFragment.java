@@ -46,8 +46,13 @@ public class HomeFragment extends Fragment {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NavHostFragment.findNavController(HomeFragment.this)
-                        .navigate(R.id.action_nav_home_to_blankTaskSettingsFragment);
+                //.findNavController(HomeFragment.this)
+                //        .navigate(R.id.action_nav_home_to_blankTaskSettingsFragment);
+                boolean edit = false;
+                //To whoever is reading this: this is the longest latin word with an additional "z" at the end. It means: the action of estimating something as worthless. Hope no one uses this as a task name lmao
+                String previousName = "honorificabilitudinitatibusz";
+                HomeFragmentDirections.ActionNavHomeToBlankTaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToBlankTaskSettingsFragment(edit, previousName);
+                NavHostFragment.findNavController(HomeFragment.this).navigate(action);
             }
         });
 
@@ -201,7 +206,7 @@ public class HomeFragment extends Fragment {
                                     Date date = new Date();
                                     String theDateThatIsToday = lastCompleted.format(date);
                                     if (!theDateThatIsToday.equals(fileLastCompleted)){
-                                        TaskComponent newTask = new TaskComponent(homeContext, taskName, taskColor, taskIncrement);
+                                        TaskComponent newTask = new TaskComponent(homeContext, taskName, taskColor, taskIncrement, this, false);
                                         tasksLayout.addView(newTask);
                                         tasks.add(newTask);
 
@@ -210,7 +215,9 @@ public class HomeFragment extends Fragment {
                                             @Override
                                             public void onClick(View view) {
                                                 String sendText = newTask.getTaskName();
-                                                HomeFragmentDirections.ActionNavHomeToHabitSubtaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToHabitSubtaskSettingsFragment(sendText);
+                                                boolean edit = false;
+                                                String previousName = "honorificabilitudinitatibusz";
+                                                HomeFragmentDirections.ActionNavHomeToHabitSubtaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToHabitSubtaskSettingsFragment(sendText, edit, previousName);
                                                 NavHostFragment.findNavController(HomeFragment.this).navigate(action);
                                                 /*
                                                 NavHostFragment.findNavController(HomeFragment.this)
@@ -239,14 +246,16 @@ public class HomeFragment extends Fragment {
                                 String[] splitter = dateOfFutureTask.split("-");
 
                                 if(currentDate.equals(dateOfFutureTask)){
-                                    TaskComponent newTask = new TaskComponent(homeContext, taskName, taskColor, taskIncrement);
+                                    TaskComponent newTask = new TaskComponent(homeContext, taskName, taskColor, taskIncrement, this, true);
                                     tasksLayout.addView(newTask);
                                     tasks.add(newTask);
                                     newTask.getButton().setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
                                             String sendText = newTask.getTaskName();
-                                            HomeFragmentDirections.ActionNavHomeToSubtaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToSubtaskSettingsFragment(sendText);
+                                            boolean edit = false;
+                                            String previousName = "honorificabilitudinitatibusz";
+                                            HomeFragmentDirections.ActionNavHomeToSubtaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToSubtaskSettingsFragment(sendText, edit, previousName);
                                             NavHostFragment.findNavController(HomeFragment.this).navigate(action);
                                         }
                                     });
@@ -256,14 +265,16 @@ public class HomeFragment extends Fragment {
                                     deleteFutureTask(homeContext.getFilesDir(), taskName);
                                 }
                             } else {
-                                TaskComponent newTask = new TaskComponent(homeContext, taskName, taskColor, taskIncrement);
+                                TaskComponent newTask = new TaskComponent(homeContext, taskName, taskColor, taskIncrement, this, false);
                                 tasksLayout.addView(newTask);
                                 tasks.add(newTask);
                                 newTask.getButton().setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
                                         String sendText = newTask.getTaskName();
-                                        HomeFragmentDirections.ActionNavHomeToSubtaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToSubtaskSettingsFragment(sendText);
+                                        boolean edit = false;
+                                        String previousName = "honorificabilitudinitatibusz";
+                                        HomeFragmentDirections.ActionNavHomeToSubtaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToSubtaskSettingsFragment(sendText, edit, previousName);
                                         NavHostFragment.findNavController(HomeFragment.this).navigate(action);
                                         //NavHostFragment.findNavController(HomeFragment.this)
                                         //        .navigate(R.id.action_nav_home_to_subtaskSettingsFragment);

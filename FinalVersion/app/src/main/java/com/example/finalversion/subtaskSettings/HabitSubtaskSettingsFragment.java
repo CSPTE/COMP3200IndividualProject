@@ -40,6 +40,10 @@ public class HabitSubtaskSettingsFragment extends Fragment {
     private ArrayList<String> subtaskHabitDays = new ArrayList<String>();
     private String subtaskHabitDaysString = null;
 
+    private boolean edit;
+    private String previousName;
+    private String unacceptableWord = "honorificabilitudinitatibusz";
+
     public HabitSubtaskSettingsFragment() {
     }
 
@@ -65,6 +69,8 @@ public class HabitSubtaskSettingsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         parent = HabitSubtaskSettingsFragmentArgs.fromBundle(getArguments()).getHabitTaskParentName();
+        edit = HabitSubtaskSettingsFragmentArgs.fromBundle(getArguments()).getEdit();
+        previousName = HabitSubtaskSettingsFragmentArgs.fromBundle(getArguments()).getPreviousName();
 
         //Day Selector
         Button bOpenAlertDialog = view.findViewById(R.id.openAlertDialogButtonSubtask);
@@ -179,13 +185,17 @@ public class HabitSubtaskSettingsFragment extends Fragment {
                     String fileBodyString = fileBody.toString();
 
                     File subTaskFile = new File(cont.getFilesDir(), fileName);
-                    if (!subTaskFile.exists()) {
+                    if ((!subTaskFile.exists()) || (previousName.equals(taskName))) {
                         try (FileOutputStream fos = cont.openFileOutput(fileName, Context.MODE_PRIVATE)) {
                             fos.write(fileBodyString.getBytes(StandardCharsets.UTF_8));
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }
+
+                        if((!previousName.equals("honorificabilitudinitatibusz")) && (!previousName.equals(taskName))){
+                            deleteTask(cont.getFilesDir(), previousName);
                         }
 
                         NavHostFragment.findNavController(HabitSubtaskSettingsFragment.this)
@@ -271,6 +281,19 @@ public class HabitSubtaskSettingsFragment extends Fragment {
         String[] days = subtaskHabitDaysString.split(", ");
         for (String day : days){
             subtaskHabitDays.add(day);
+        }
+    }
+
+    private void deleteTask(File dir, String taskName){
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches(taskName + parent +"Subtazk.txt")){
+                    boolean isItDeleted = file.delete();
+                }
+            }
         }
     }
 }

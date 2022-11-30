@@ -28,6 +28,10 @@ public class SubtaskSettingsFragment extends Fragment {
     private Context cont;
     private String parent;
 
+    private boolean edit;
+    private String previousName;
+    private String unacceptableWord = "honorificabilitudinitatibusz";
+
     public SubtaskSettingsFragment() {
     }
 
@@ -53,6 +57,8 @@ public class SubtaskSettingsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         parent = SubtaskSettingsFragmentArgs.fromBundle(getArguments()).getTaskParentName();
+        edit = SubtaskSettingsFragmentArgs.fromBundle(getArguments()).getEdit();
+        previousName = SubtaskSettingsFragmentArgs.fromBundle(getArguments()).getPreviousName();
 
         //Done Button
         EditText nameEditText = view.findViewById(R.id.subTaskNameInput);
@@ -85,13 +91,17 @@ public class SubtaskSettingsFragment extends Fragment {
                     String fileBodyString = fileBody.toString();
 
                     File subTaskFile = new File(cont.getFilesDir(), fileName);
-                    if (!subTaskFile.exists()) {
+                    if ((!subTaskFile.exists()) || (previousName.equals(taskName))) {
                         try (FileOutputStream fos = cont.openFileOutput(fileName, Context.MODE_PRIVATE)) {
                             fos.write(fileBodyString.getBytes(StandardCharsets.UTF_8));
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }
+
+                        if((!previousName.equals("honorificabilitudinitatibusz")) && (!previousName.equals(taskName))){
+                            deleteTask(cont.getFilesDir(), previousName);
                         }
 
                         NavHostFragment.findNavController(SubtaskSettingsFragment.this)
@@ -139,5 +149,18 @@ public class SubtaskSettingsFragment extends Fragment {
         }
         // only got here if we didn't return false
         return true;
+    }
+
+    private void deleteTask(File dir, String taskName){
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches(taskName + parent +"Subtazk.txt")){
+                    boolean isItDeleted = file.delete();
+                }
+            }
+        }
     }
 }

@@ -40,16 +40,22 @@
     <fragment
         android:id="@+id/blankTaskSettingsFragment"
         android:name="com.example.finalversion.taskSettings.BlankTaskSettingsFragment"
-        android:label="Add A New Task"
-        tools:layout="@layout/fragment_blank_task_settings" >
+        android:label="Add Or Edit A Task"
+        tools:layout="@layout/fragment_blank_task_settings">
         <action
             android:id="@+id/action_blankTaskSettingsFragment_to_nav_home"
             app:destination="@id/nav_home" />
+        <argument
+            android:name="edit"
+            app:argType="boolean" />
+        <argument
+            android:name="previousName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/subtaskSettingsFragment"
         android:name="com.example.finalversion.subtaskSettings.SubtaskSettingsFragment"
-        android:label="Add A New Subtask"
+        android:label="Add Or Edit A New Subtask"
         tools:layout="@layout/fragment_subtask_settings">
         <action
             android:id="@+id/action_subtaskSettingsFragment_to_nav_home"
@@ -57,17 +63,29 @@
         <argument
             android:name="taskParentName"
             app:argType="string" />
+        <argument
+            android:name="edit"
+            app:argType="boolean" />
+        <argument
+            android:name="previousName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/habitSubtaskSettingsFragment"
         android:name="com.example.finalversion.subtaskSettings.HabitSubtaskSettingsFragment"
-        android:label="Add A New Subtask"
+        android:label="Add Or Edit A New Subtask"
         tools:layout="@layout/fragment_habit_subtask_settings">
         <action
             android:id="@+id/action_habitSubtaskSettingsFragment_to_nav_home"
             app:destination="@id/nav_home" />
         <argument
             android:name="habitTaskParentName"
+            app:argType="string" />
+        <argument
+            android:name="edit"
+            app:argType="boolean" />
+        <argument
+            android:name="previousName"
             app:argType="string" />
     </fragment>
     <fragment

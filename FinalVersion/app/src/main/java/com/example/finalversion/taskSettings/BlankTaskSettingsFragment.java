@@ -38,6 +38,9 @@ public class BlankTaskSettingsFragment extends Fragment {
     private BlankTaskSettingsViewModel mViewModel;
     private ColorObject selectedColor;
     private Context cont;
+    private boolean edit;
+    private String previousName;
+    private String unacceptableWord = "honorificabilitudinitatibusz";
 
     public static BlankTaskSettingsFragment newInstance() {
         return new BlankTaskSettingsFragment();
@@ -60,6 +63,9 @@ public class BlankTaskSettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        edit = BlankTaskSettingsFragmentArgs.fromBundle(getArguments()).getEdit();
+        previousName = BlankTaskSettingsFragmentArgs.fromBundle(getArguments()).getPreviousName();
 
         //ColorSpinner
         ColorList cl = new ColorList();
@@ -187,7 +193,7 @@ public class BlankTaskSettingsFragment extends Fragment {
                 if (blanks.toString().equals("")){
                     //TODO: Quick lookup for naming scheme
                     //Task Naming scheme: WorkoutTask.txt
-                    //Subtask Naming scheme: WorkoutSitupsSubtazk.txt
+                    //Subtask Naming scheme: SitupsWorkoutSubtazk.txt
                     //CalendarSelectedHabits: TrackedHabits.txt
                     //LogFile Naming scheme: WorkoutLog.txt
                     //FutureTask Naming scheme: WorkoutFuturetakk.txt
@@ -205,13 +211,17 @@ public class BlankTaskSettingsFragment extends Fragment {
                     String fileBodyString = fileBody.toString();
 
                     File taskFile = new File(cont.getFilesDir(), fileName);
-                    if (!taskFile.exists()) {
+                    if ((!taskFile.exists()) || (previousName.equals(taskName))) {
                         try (FileOutputStream fos = cont.openFileOutput(fileName, Context.MODE_PRIVATE)) {
                             fos.write(fileBodyString.getBytes(StandardCharsets.UTF_8));
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
                             e.printStackTrace();
+                        }
+
+                        if((!previousName.equals("honorificabilitudinitatibusz")) && (!previousName.equals(taskName))){
+                            deleteTask(cont.getFilesDir(), previousName);
                         }
 
                         if(taskHabitToggle){
@@ -270,5 +280,21 @@ public class BlankTaskSettingsFragment extends Fragment {
         }
         // only got here if we didn't return false
         return true;
+    }
+
+    private void deleteTask(File dir, String taskName){
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches(taskName +"Task.txt")){
+                    boolean isItDeleted = file.delete();
+                }
+                if ((fileName.matches(".*" + taskName +"Subtazk.txt")) || (fileName.matches(taskName + "Log.txt"))){
+                    boolean isItDeleted = file.delete();
+                }
+            }
+        }
     }
 }

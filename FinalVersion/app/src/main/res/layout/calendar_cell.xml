@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/cellDayText"
         android:text="1"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:textColor="?android:attr/textColorPrimary"
         android:paddingTop="3sp"
         android:paddingBottom="3sp"

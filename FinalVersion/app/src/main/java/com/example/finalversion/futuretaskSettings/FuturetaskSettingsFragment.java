@@ -19,8 +19,6 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.example.finalversion.R;
-import com.example.finalversion.subtaskSettings.SubtaskSettingsFragmentArgs;
-import com.example.finalversion.taskSettings.BlankTaskSettingsFragment;
 import com.example.finalversion.taskSettings.ColorList;
 import com.example.finalversion.taskSettings.ColorObject;
 import com.example.finalversion.taskSettings.ColorSpinnerAdapter;

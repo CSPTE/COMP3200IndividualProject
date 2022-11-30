@@ -19,6 +19,7 @@
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable-v25/calendar_day_current.xml" value="0.1305" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/add_new_subtask_button.xml" value="0.162" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/border.xml" value="0.162" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/border_statistics_subtask.xml" value="0.1695" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_a.xml" value="0.1305" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_border.xml" value="0.1305" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/drawable/calendar_day_current.xml" value="0.1305" />
@@ -79,7 +80,7 @@
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_add_new_task_login.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_blank_task_settings.xml" value="0.25" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_futuretask_settings.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_gallery.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_gallery.xml" value="0.22685185185185186" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_habit_subtask_settings.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_home.xml" value="0.25025641025641027" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_login.xml" value="0.22826086956521738" />
@@ -89,6 +90,8 @@
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/fragment_subtask_settings.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/nav_header_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/repeating_activity_layout.xml" value="0.190625" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/statistics_component.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/statistics_line_component.xml" value="0.253125" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/layout/task_component.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/menu/activity_main_drawer.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/User/Desktop/School/COMP3200 - Part III Individual Project/2.Code/FinalVersion/app/src/main/res/menu/main.xml" value="0.25416666666666665" />

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 
 import com.example.finalversion.R;
-import com.example.finalversion.ui.home.TaskComponent;
 
 import java.util.ArrayList;
 

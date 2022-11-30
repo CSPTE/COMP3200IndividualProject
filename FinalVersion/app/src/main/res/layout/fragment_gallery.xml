@@ -47,7 +47,7 @@
                     android:text="Select Up To 4 Tasks:"
                     android:textAlignment="textStart"
                     android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     android:paddingEnd="10sp"
                     android:paddingTop="8sp"/>
@@ -60,7 +60,7 @@
                     android:backgroundTint="?android:attr/textColorPrimary"
                     android:text="Select"
                     android:textColor="?android:attr/textColorPrimaryInverse"
-                    android:textSize="15sp" />
+                    android:textSize="17sp" />
 
             </LinearLayout>
 
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:textColor="#757575"
-                android:textSize="15sp" />
+                android:textSize="17sp" />
 
         </LinearLayout>
 
@@ -88,7 +88,7 @@
                 android:textColor="@color/Azure"
                 android:background="@android:color/transparent"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="17sp"/>
 
             <TextView
                 android:id="@+id/monthYearTV"
@@ -96,7 +96,7 @@
                 android:layout_weight="2"
                 android:layout_height="wrap_content"
                 android:text="Feb 2021"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textAlignment="center"
                 android:textColor="?android:attr/textColorPrimary"/>
 
@@ -109,7 +109,7 @@
                 android:textColor="@color/Azure"
                 android:background="@android:color/transparent"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="17sp"/>
 
         </LinearLayout>
 

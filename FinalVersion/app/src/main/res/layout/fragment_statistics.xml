@@ -8,66 +8,61 @@
     android:layout_height="match_parent"
     android:isScrollContainer="true"
     android:paddingLeft="@dimen/fragment_horizontal_margin"
-    android:paddingTop="@dimen/fragment_vertical_margin"
-    android:paddingRight="@dimen/fragment_horizontal_margin"
-    android:paddingBottom="@dimen/fragment_vertical_margin">
+    android:paddingTop="5dp"
+    android:paddingRight="@dimen/fragment_horizontal_margin">
+
+    <!-- Habit Selection -->
+    <LinearLayout
+        android:id="@+id/habit_select_statistics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_weight="3"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/instructionTextStatistics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Tasks:"
+            android:textAlignment="textStart"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_weight="2"
+            android:paddingTop="8sp"/>
+
+        <Button
+            android:id="@+id/selectHabitsStatistics"
+            android:layout_width="110sp"
+            android:layout_height="40sp"
+            android:backgroundTint="?android:attr/textColorPrimary"
+            android:text="Select"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            android:textSize="17sp" />
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40sp"
+        android:layout_marginBottom="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/habit_select_statistics"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
+            android:id="@+id/addStatisticsComponents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Color Spinner -->
-            <LinearLayout
-                android:id="@+id/colorSelectFutureTask"
-                android:layout_width="348sp"
-                android:layout_height="66sp"
-                android:layout_marginEnd="80sp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/increment">
-
-                <TextView
-                    android:layout_width="120sp"
-                    android:layout_height="match_parent"
-                    android:fontFamily="sans-serif-light"
-                    android:gravity="left|center_vertical"
-                    android:text="Color"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <Spinner
-                    android:id="@+id/colorSpinnerFutureTask"
-                    android:layout_width="0sp"
-                    android:layout_height="50sp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="20sp"
-                    android:layout_weight="1"
-                    android:background="#000000"
-                    android:gravity="center"
-                    android:spinnerMode="dialog"
-                    android:textAlignment="center"
-                    tools:ignore="SpeakableTextPresentCheck" />
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <Button
-        android:id="@+id/add_taskFutureTask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:text="Add Task"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

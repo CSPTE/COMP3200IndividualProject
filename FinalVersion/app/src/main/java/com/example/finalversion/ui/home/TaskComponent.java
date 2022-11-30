@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.finalversion.R;
 import com.example.finalversion.notification.Receiver;
@@ -61,16 +62,21 @@ public class TaskComponent extends ConstraintLayout {
     int notificationMinute;
     boolean notificationToggle = false;
 
+    private HomeFragment hf;
+    private boolean isFuture;
+
     public TaskComponent(Context context){
         super(context);
         init(context);
     }
-    public TaskComponent(Context context, String name, String color, String increment) {
+    public TaskComponent(Context context, String name, String color, String increment, HomeFragment frag, boolean ff) {
         super(context);
         homeTaskbarContext = context;
         taskText = name;
         taskColor = color;
         taskIncrement = increment;
+        hf = frag;
+        isFuture = ff;
         initWithParameters(context);
     }
 
@@ -168,8 +174,8 @@ public class TaskComponent extends ConstraintLayout {
             @Override
             public boolean onLongClick(View view) {
                 AlertDialog.Builder delete = new AlertDialog.Builder(cont);
-                delete.setTitle("Delete Task");
-                delete.setMessage("Are you sure you want to delete this task?");
+                delete.setTitle("Delete Or Edit Task");
+                delete.setMessage("Are you sure you want to delete this task? \nEditing the name of this task will result in all of its subtasks being lost.");
                 delete.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @SuppressLint("SetTextI18n")
                     @Override
@@ -185,6 +191,17 @@ public class TaskComponent extends ConstraintLayout {
 
                     }
                 });
+                if (!isFuture) {
+                    delete.setNeutralButton("Edit", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            boolean edit = true;
+                            String previousName = taskText;
+                            HomeFragmentDirections.ActionNavHomeToBlankTaskSettingsFragment action = HomeFragmentDirections.actionNavHomeToBlankTaskSettingsFragment(edit, previousName);
+                            NavHostFragment.findNavController(hf).navigate(action);
+                        }
+                    });
+                }
                 delete.create();
                 AlertDialog alertDialog = delete.create();
                 alertDialog.show();
@@ -312,7 +329,7 @@ public class TaskComponent extends ConstraintLayout {
             for (int i = 0; i < files.length; ++i) {
                 File file = files[i];
                 String fileName = file.getName() + ".txt";
-                if ((fileName.matches(taskText +"Task.txt")) || (fileName.matches(taskText +"FutureTakk.txt"))){
+                if ((fileName.matches(taskText +"Task.txt")) || (fileName.matches(taskText +"FutureTakk.txt")) || (fileName.matches(taskText + "Log.txt"))){
                     boolean isItDeleted = file.delete();
                 }
                 if (fileName.matches(".*" + taskText +"Subtazk.txt")){
@@ -388,7 +405,7 @@ public class TaskComponent extends ConstraintLayout {
 
     private void initialiseTestSubtask() {
         SubtaskComponent stc;
-        stc = new SubtaskComponent(homeTaskbarContext, "Cardio", "#FF6961", "0/5", isHabit, taskText, this);
+        stc = new SubtaskComponent(homeTaskbarContext, "Cardio", "#FF6961", "0/5", isHabit, taskText, this, hf);
     }
 
     public String getTaskName(){
@@ -451,13 +468,13 @@ public class TaskComponent extends ConstraintLayout {
                                     Date date = new Date();
                                     String theDateThatIsToday = lastCompleted.format(date);
                                     if (!theDateThatIsToday.equals(fileLastCompleted)){
-                                        SubtaskComponent newSubtask = new SubtaskComponent(homeTaskbarContext, subTaskName, taskColor, subTaskIncrement, isHabit, taskText, this);
+                                        SubtaskComponent newSubtask = new SubtaskComponent(homeTaskbarContext, subTaskName, taskColor, subTaskIncrement, isHabit, taskText, this, hf);
                                         subTasks.add(newSubtask);
                                     }
                                 }
                             }
                         } else {
-                            SubtaskComponent newSubtask = new SubtaskComponent(homeTaskbarContext, subTaskName, taskColor, subTaskIncrement, isHabit, taskText, this);
+                            SubtaskComponent newSubtask = new SubtaskComponent(homeTaskbarContext, subTaskName, taskColor, subTaskIncrement, isHabit, taskText, this, hf);
                             subTasks.add(newSubtask);
                         }
                         br.close();

@@ -27,7 +27,7 @@
             android:text="Subtask Name"
             android:textAlignment="textStart"
             android:textColor="?android:attr/textColorPrimary"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <EditText
@@ -60,7 +60,7 @@
             android:text="Number Of Increments"
             android:textAlignment="textStart"
             android:textColor="?android:attr/textColorPrimary"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <EditText
