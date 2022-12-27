@@ -4,11 +4,19 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -24,13 +32,32 @@ import com.example.finalversion.databinding.ActivityMainBinding;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+
+    //TODO: Quick lookup for naming scheme
+    //Task Naming scheme: WorkoutTask.txt
+    //Subtask Naming scheme: SitupsWorkoutSubtazk.txt
+    //CalendarSelectedHabits: TrackedHabits.txt
+    //LogFile Naming scheme: WorkoutLog.txt
+    //FutureTask Naming scheme: WorkoutFuturetakk.txt
+    //Background Image: background_image.jpg
+    //Profile Picture: profile_image.jpg
+    //Username: username.txt
+    //ProfileSelectedHabits: DisplayedHabits.txt
+    //Task Point File: WorkoutPointcard.txt
+    //Weekly Point File: WeeklyScore.txt
+    //Monthly Point File: MonthlyScore.txt
+    //AllTime Point File: AllTimeScore.txt
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
@@ -83,9 +110,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        View header = navigationView.getHeaderView(0);
+        LinearLayout backgroundImage = header.findViewById(R.id.backgroundView);
+        ImageView profileImage = header.findViewById(R.id.imageView);
+        TextView username = header.findViewById(R.id.textView);
+        setHeaderMain(backgroundImage, profileImage, username);
+
+        createPointcardFiles();
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_statistics, R.id.nav_settings)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_statistics, R.id.nav_settings, R.id.nav_profile)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -124,6 +158,60 @@ public class MainActivity extends AppCompatActivity {
         File themeFile = new File(mainContext.getFilesDir(), "AppTheme");
         if (!themeFile.exists()) {
             try (FileOutputStream fos = mainContext.openFileOutput("AppTheme", Context.MODE_PRIVATE)) {
+                fos.write(fileBodyString.getBytes(StandardCharsets.UTF_8));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void createPointcardFiles(){
+        File weeklyFile = new File(mainContext.getFilesDir(), "WeeklyScore");
+        if (!weeklyFile.exists()) {
+            SimpleDateFormat taskSimpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date taskDate = new Date();
+            String currentDate = taskSimpleDateFormat.format(taskDate);
+
+            StringBuilder fileBody = new StringBuilder();
+            fileBody.append("Start Date =" + currentDate + "\n");
+            fileBody.append("Points =0" + "\n");
+            String fileBodyString = fileBody.toString();
+            try (FileOutputStream fos = mainContext.openFileOutput("WeeklyScore", Context.MODE_PRIVATE)) {
+                fos.write(fileBodyString.getBytes(StandardCharsets.UTF_8));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        File monthlyFile = new File(mainContext.getFilesDir(), "MonthlyScore");
+        if (!monthlyFile.exists()) {
+            SimpleDateFormat taskSimpleDateFormat = new SimpleDateFormat("MMMM");
+            Date taskDate = new Date();
+            String currentDate = taskSimpleDateFormat.format(taskDate);
+
+            StringBuilder fileBody = new StringBuilder();
+            fileBody.append("Start Date =" + currentDate + "\n");
+            fileBody.append("Points =0" + "\n");
+            String fileBodyString = fileBody.toString();
+            try (FileOutputStream fos = mainContext.openFileOutput("MonthlyScore", Context.MODE_PRIVATE)) {
+                fos.write(fileBodyString.getBytes(StandardCharsets.UTF_8));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        File allTimeFile = new File(mainContext.getFilesDir(), "AllTimeScore");
+        if (!allTimeFile.exists()) {
+            StringBuilder fileBody = new StringBuilder();
+            fileBody.append("Points =0" + "\n");
+            String fileBodyString = fileBody.toString();
+            try (FileOutputStream fos = mainContext.openFileOutput("AllTimeScore", Context.MODE_PRIVATE)) {
                 fos.write(fileBodyString.getBytes(StandardCharsets.UTF_8));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -173,6 +261,50 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
+        }
+    }
+
+    public void setHeaderMain(LinearLayout backgroundPicture, ImageView profilePic, TextView username){
+        // try to load the stored background image
+        try {
+            FileInputStream inputStream = mainContext.openFileInput("background_image.jpg");
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            Drawable drawable = new BitmapDrawable(getResources(), bitmap);
+            backgroundPicture.setBackground(drawable);
+            inputStream.close();
+        } catch (FileNotFoundException e) {
+            // file not found, do nothing
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // try to load the stored profile image
+        try {
+            FileInputStream inputStream = mainContext.openFileInput("profile_image.jpg");
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            profilePic.setImageBitmap(bitmap);
+            inputStream.close();
+        } catch (FileNotFoundException e) {
+            // file not found, do nothing
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //load username
+        try {
+            FileInputStream inputStream = mainContext.openFileInput("username.txt");
+            InputStreamReader reader = new InputStreamReader(inputStream);
+            StringBuilder usernameBuilder = new StringBuilder();
+            int character;
+            while ((character = reader.read()) != -1) {
+                usernameBuilder.append((char) character);
+            }
+            reader.close();
+            inputStream.close();
+            String loadedUsername = usernameBuilder.toString();
+            username.setText(loadedUsername);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -55,6 +55,7 @@ public class StatisticsFragment extends Fragment {
         binding = null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -73,14 +74,16 @@ public class StatisticsFragment extends Fragment {
         final boolean[] checkedItems = new boolean[listItems.length];
         final List<String> selectedItems = Arrays.asList(listItems);
 
-        loadAllAsDefault();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            loadAllAsDefault();
+        }
 
         bOpenAlertDialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(statisticsContext);
                 builder.setTitle("Select Tasks");
-                builder.setIcon(R.drawable.ic_menu_calendar);
+                builder.setIcon(R.mipmap.ic_launcher);
 
                 builder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
@@ -98,6 +101,7 @@ public class StatisticsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         tasksLayout.removeAllViews();
                         boolean allSelected = false;
+                        boolean doneOnce = false;
                         for (int i = 0; i < checkedItems.length; i++) {
                             if (checkedItems[i]) {
                                 //Statistics components
@@ -105,16 +109,19 @@ public class StatisticsFragment extends Fragment {
                                     allSelected = true;
                                 }
                                 if (allSelected){
-                                    for(String task : listItems){
-                                        if(!task.equals("All")) {
-                                            StatisticsComponent sc = new StatisticsComponent(statisticsContext, task, false, null);
-                                            tasksLayout.addView(sc);
-                                            loadSubtasks(statisticsContext.getFilesDir(), task);
+                                    if (!doneOnce){
+                                        for(String task : listItems){
+                                            if(!task.equals("All")) {
+                                                StatisticsComponent sc = new StatisticsComponent(statisticsContext, task, false, null);
+                                                tasksLayout.addView(sc);
+                                                loadSubtasks(statisticsContext.getFilesDir(), task);
+                                                for (String subTask : subTasks){
+                                                    StatisticsComponent ssc = new StatisticsComponent(statisticsContext, subTask, true, task);
+                                                    tasksLayout.addView(ssc);
+                                                }
+                                            }
                                         }
-                                        for (String subTask : subTasks){
-                                            StatisticsComponent ssc = new StatisticsComponent(statisticsContext, subTask, true, task);
-                                            tasksLayout.addView(ssc);
-                                        }
+                                        doneOnce = true;
                                     }
                                 } else {
                                     StatisticsComponent sc = new StatisticsComponent(statisticsContext, listItems[i], false, null);
@@ -184,6 +191,7 @@ public class StatisticsFragment extends Fragment {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void loadAllAsDefault(){
         for(String task : tasks){
             if(!task.equals("All")) {

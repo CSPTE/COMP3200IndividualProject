@@ -191,13 +191,6 @@ public class BlankTaskSettingsFragment extends Fragment {
                  */
 
                 if (blanks.toString().equals("")){
-                    //TODO: Quick lookup for naming scheme
-                    //Task Naming scheme: WorkoutTask.txt
-                    //Subtask Naming scheme: SitupsWorkoutSubtazk.txt
-                    //CalendarSelectedHabits: TrackedHabits.txt
-                    //LogFile Naming scheme: WorkoutLog.txt
-                    //FutureTask Naming scheme: WorkoutFuturetakk.txt
-
                     String fileName = taskName + "Task";
                     StringBuilder fileBody = new StringBuilder();
                     fileBody.append("Task name =" + taskName + "\n");
@@ -234,6 +227,16 @@ public class BlankTaskSettingsFragment extends Fragment {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
+                        }
+
+                        String pointcardFileName = taskName + "Pointcard";
+                        String pointcardFileBody = "Points =0";
+                        try (FileOutputStream fosp = cont.openFileOutput(pointcardFileName, Context.MODE_PRIVATE)) {
+                            fosp.write(pointcardFileBody.getBytes(StandardCharsets.UTF_8));
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
 
                         NavHostFragment.findNavController(BlankTaskSettingsFragment.this)

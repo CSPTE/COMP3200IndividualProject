@@ -111,7 +111,7 @@ public class GalleryFragment extends Fragment implements CalendarAdapter.OnItemL
                 tvSelectedItemsPreview.setText(null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(galleryContext);
                 builder.setTitle("Select Habits");
-                builder.setIcon(R.drawable.ic_menu_calendar);
+                builder.setIcon(R.mipmap.ic_launcher);
 
                 builder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
@@ -159,6 +159,7 @@ public class GalleryFragment extends Fragment implements CalendarAdapter.OnItemL
                             }
 
                             //Refresh, incredibly inefficiently the app
+                            /*
                             initDaysAndTasksOnThem();
                             for (String task : loadedHabits){
                                 findDaysForTheTasks(galleryContext.getFilesDir(), task);
@@ -171,6 +172,9 @@ public class GalleryFragment extends Fragment implements CalendarAdapter.OnItemL
                             }
                             selectedDate = selectedDate.plusMonths(1);
                             setMonthView();
+
+                             */
+                            getActivity().recreate();
 
                         } else {
                             AlertDialog.Builder tooManyTasks = new AlertDialog.Builder(galleryContext);
