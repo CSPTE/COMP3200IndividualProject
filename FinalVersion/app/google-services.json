@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "512746724903",
+    "project_id": "rise-the-self-improvement-tool",
+    "storage_bucket": "rise-the-self-improvement-tool.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:512746724903:android:a5b0025434ec08aca7f802",
+        "android_client_info": {
+          "package_name": "com.example.finalversion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "512746724903-68mr9cf9nq9i3g325vurbe5o4f39r7aq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD02ojpA06SbXD2hxksLboake7CwZV1xMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "512746724903-68mr9cf9nq9i3g325vurbe5o4f39r7aq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

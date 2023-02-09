@@ -28,4 +28,5 @@
     <string name="add_new_subtask">Add New Subtask</string>
     <string name="backArrow"><![CDATA[<-]]></string>
     <string name="forwardArrow"><![CDATA[->]]></string>
+    <string name="game_services_project_id" translatable="false"> 925622128762 </string>
 </resources>

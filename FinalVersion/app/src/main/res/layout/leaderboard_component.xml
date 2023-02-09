@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/leaderboard_component"
+        android:layout_width="match_parent"
+        android:layout_height="35sp"
+        android:orientation="horizontal"
+        android:background="?android:attr/textColorPrimaryInverse"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/leaderboard_rank"
+            android:layout_width="0sp"
+            android:layout_height="35sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="#1"
+            android:textColor="?android:attr/textColorPrimary"
+            android:autoSizeTextType="uniform" />
+
+        <TextView
+            android:id="@+id/leaderboard_user_name"
+            android:layout_width="0sp"
+            android:layout_height="35sp"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="TheCaptain"
+            android:textColor="?android:attr/textColorPrimary"
+            android:autoSizeTextType="uniform" />
+
+        <TextView
+            android:id="@+id/leaderboard_score"
+            android:layout_width="0sp"
+            android:layout_height="35sp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="1000"
+            android:textColor="?android:attr/textColorPrimary"
+            android:autoSizeTextType="uniform" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

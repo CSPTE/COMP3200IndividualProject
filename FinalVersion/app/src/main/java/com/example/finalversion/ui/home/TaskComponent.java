@@ -769,6 +769,9 @@ public class TaskComponent extends ConstraintLayout {
         String currentDateWeeklyDay = taskSimpleDateFormatWeeklyDay.format(taskDateWeeklyDay);
         //String currentDateWeeklyDay = "Sunday";
 
+
+        String oldDateStr = getPreviousDateWeeklyScore(homeTaskbarContext.getFilesDir());
+
         if(currentDateWeeklyDay.equals("Sunday")){
             boolean resetWeek = checkIfWeekNeedsResetting(homeTaskbarContext.getFilesDir(), currentDateWeekly);
             if(resetWeek){
@@ -783,9 +786,8 @@ public class TaskComponent extends ConstraintLayout {
         } else {
             int oldPointsWeek = getcurrentPointsWeek(homeTaskbarContext.getFilesDir());
             int newPointsWeek = oldPointsWeek + (Math.round(10 * streakInt * (percentage/100)));
-            updateWeekPointFile(homeTaskbarContext.getFilesDir(), newPointsWeek, currentDateWeekly);
+            updateWeekPointFile(homeTaskbarContext.getFilesDir(), newPointsWeek, oldDateStr);
         }
-        //TODO: Update Weekly points
 
     }
 
@@ -1191,6 +1193,37 @@ public class TaskComponent extends ConstraintLayout {
             }
         }
         return resetWeek;
+    }
+
+    private String getPreviousDateWeeklyScore(File dir){
+        boolean resetWeek = false;
+        String fileMonth;
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches("WeeklyScore.txt")){
+                    try {
+                        BufferedReader br = new BufferedReader(new FileReader(file));
+                        String line = br.readLine();
+                        //read each line
+                        while (line != null) {
+                            if (line.matches("Start Date =.*")){
+                                String[] value = line.split("=");
+                                fileMonth = value[1];
+                                return fileMonth;
+                            }
+                            line = br.readLine();
+                        }
+                        br.close();
+                    } catch (IOException e) {
+                        Log.d("Exception",e.toString());
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     private void updateWeekPointFileDated(File dir, int newPoints, String currentDate){

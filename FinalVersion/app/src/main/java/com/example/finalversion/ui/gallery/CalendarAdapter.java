@@ -367,9 +367,15 @@ class CalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder>
                     try {
                         BufferedReader br = new BufferedReader(new FileReader(file));
                         String line = br.readLine();
-                        String dayTested = holdUp.dayOfMonth.getText().toString() + "-" + thisMonthInt + "-" + thisYear;
+                        String simpleMonth;
+                        if (Integer.toString(thisMonthInt).length() < 2){
+                            simpleMonth = "0" + Integer.toString(thisMonthInt);
+                        } else {
+                            simpleMonth = Integer.toString(thisMonthInt);
+                        }
+                        String dayTested = holdUp.dayOfMonth.getText().toString() + "-" + simpleMonth + "-" + thisYear;
                         String simpleDayOfMonth = "0" + holdUp.dayOfMonth.getText().toString();
-                        String simpleDayTested = simpleDayOfMonth + "-" + thisMonthInt + "-" + thisYear;
+                        String simpleDayTested = simpleDayOfMonth + "-" + simpleMonth + "-" + thisYear;
                         System.out.println(dayTested);
                         boolean dayFound = false;
                         //read each line

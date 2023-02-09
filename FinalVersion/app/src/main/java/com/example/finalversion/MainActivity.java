@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -40,6 +41,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     private MenuItem darkMode;
     private String currentAppTheme;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,10 +119,30 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout backgroundImage = header.findViewById(R.id.backgroundView);
         ImageView profileImage = header.findViewById(R.id.imageView);
         TextView username = header.findViewById(R.id.textView);
+        generateUsername();
         setHeaderMain(backgroundImage, profileImage, username);
 
         createPointcardFiles();
 
+        //Monthly Score
+        SimpleDateFormat taskSimpleDateFormat = new SimpleDateFormat("MMMM");
+        Date taskDate = new Date();
+        String currentDateMonth = taskSimpleDateFormat.format(taskDate);
+        boolean resetMonth = checkIfMonthNeedsResetting(mainContext.getFilesDir(), currentDateMonth);
+        if (resetMonth){
+            updateMonthPointFileDated(mainContext.getFilesDir(), 0, currentDateMonth);
+        }
+
+        //Weekly Score
+        SimpleDateFormat currentDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date currentDateTemp = new Date();
+        String currentDateString = currentDateFormat.format(currentDateTemp);
+        boolean resetWeek = checkIfWeekNeedsResetting(mainContext.getFilesDir(), currentDateString);
+        if(resetWeek){
+            updateWeekPointFileDated(mainContext.getFilesDir(), 0, currentDateString);
+        }
+
+        //Navigation
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_statistics, R.id.nav_settings, R.id.nav_profile)
                 .setOpenableLayout(drawer)
@@ -264,6 +289,22 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void generateUsername(){
+        File taskFile = new File(this.getFilesDir(), "username");
+        if (!taskFile.exists()) {
+            long unixTime = Instant.now().getEpochSecond();
+            String username = "Traveller" + String.valueOf(unixTime);
+            try (FileOutputStream fos = this.openFileOutput("username", Context.MODE_PRIVATE)) {
+                fos.write(username.getBytes(StandardCharsets.UTF_8));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void setHeaderMain(LinearLayout backgroundPicture, ImageView profilePic, TextView username){
         // try to load the stored background image
         try {
@@ -292,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
 
         //load username
         try {
-            FileInputStream inputStream = mainContext.openFileInput("username.txt");
+            FileInputStream inputStream = mainContext.openFileInput("username");
             InputStreamReader reader = new InputStreamReader(inputStream);
             StringBuilder usernameBuilder = new StringBuilder();
             int character;
@@ -305,6 +346,134 @@ public class MainActivity extends AppCompatActivity {
             username.setText(loadedUsername);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private boolean checkIfMonthNeedsResetting(File dir, String currentMonth){
+        boolean resetMonth = false;
+        String fileMonth;
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches("MonthlyScore.txt")){
+                    try {
+                        BufferedReader br = new BufferedReader(new FileReader(file));
+                        String line = br.readLine();
+                        //read each line
+                        while (line != null) {
+                            if (line.matches("Start Date =.*")){
+                                String[] value = line.split("=");
+                                fileMonth = value[1];
+                                if(!currentMonth.equals(fileMonth)){
+                                    resetMonth = true;
+                                }
+                            }
+                            line = br.readLine();
+                        }
+                        br.close();
+                    } catch (IOException e) {
+                        Log.d("Exception",e.toString());
+                    }
+                }
+            }
+        }
+        return resetMonth;
+    }
+
+    private void updateMonthPointFileDated(File dir, int newPoints, String currentDate){
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches("MonthlyScore.txt")){
+                    try {
+                        StringBuilder fileBody = new StringBuilder();
+                        fileBody.append("Start Date =" + currentDate + "\n");
+                        fileBody.append("Points =" + newPoints + "\n");
+                        String fileBodyString = fileBody.toString();
+
+                        FileOutputStream fos = new FileOutputStream(file);
+                        fos.write(fileBodyString.getBytes(StandardCharsets.UTF_8));
+                        fos.close();
+                    } catch (IOException e) {
+                        Log.d("Exception",e.toString());
+                    }
+                }
+            }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private boolean checkIfWeekNeedsResetting(File dir, String currentMonth){
+        boolean resetWeek = false;
+        String fileMonth;
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches("WeeklyScore.txt")){
+                    try {
+                        BufferedReader br = new BufferedReader(new FileReader(file));
+                        String line = br.readLine();
+                        //read each line
+                        while (line != null) {
+                            if (line.matches("Start Date =.*")){
+                                String[] value = line.split("=");
+                                fileMonth = value[1];
+
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                                String firstDateString = fileMonth;
+                                LocalDate firstDate = LocalDate.parse(firstDateString, formatter);
+
+                                DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                                String firstDateString2 = currentMonth;
+                                LocalDate firstDate2 = LocalDate.parse(firstDateString2, formatter2);
+
+                                for (int j=0; j<7; j++) {
+                                    firstDate = firstDate.plusDays(1);
+                                }
+
+                                if((firstDate.isBefore(firstDate2))){
+                                    resetWeek = true;
+                                }
+                            }
+                            line = br.readLine();
+                        }
+                        br.close();
+                    } catch (IOException e) {
+                        Log.d("Exception",e.toString());
+                    }
+                }
+            }
+        }
+        return resetWeek;
+    }
+
+    private void updateWeekPointFileDated(File dir, int newPoints, String currentDate){
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (int i = 0; i < files.length; ++i) {
+                File file = files[i];
+                String fileName = file.getName() + ".txt";
+                if (fileName.matches("WeeklyScore.txt")){
+                    try {
+                        StringBuilder fileBody = new StringBuilder();
+                        fileBody.append("Start Date =" + currentDate + "\n");
+                        fileBody.append("Points =" + newPoints + "\n");
+                        String fileBodyString = fileBody.toString();
+
+                        FileOutputStream fos = new FileOutputStream(file);
+                        fos.write(fileBodyString.getBytes(StandardCharsets.UTF_8));
+                        fos.close();
+                    } catch (IOException e) {
+                        Log.d("Exception",e.toString());
+                    }
+                }
+            }
         }
     }
 }

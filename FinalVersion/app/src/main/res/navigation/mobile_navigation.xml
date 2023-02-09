@@ -36,7 +36,11 @@
         android:id="@+id/nav_slideshow"
         android:name="com.example.finalversion.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_leaderboard"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_slideshow" >
+        <action
+            android:id="@+id/action_nav_slideshow_to_profileLBFragment"
+            app:destination="@id/profileLBFragment" />
+    </fragment>
     <fragment
         android:id="@+id/blankTaskSettingsFragment"
         android:name="com.example.finalversion.taskSettings.BlankTaskSettingsFragment"
@@ -110,4 +114,16 @@
         android:name="com.example.finalversion.ui.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/profileLBFragment"
+        android:name="com.example.finalversion.ui.slideshow.ProfileLBFragment"
+        android:label="Viewing Profile of:"
+        tools:layout="@layout/fragment_profile_l_b">
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_profileLBFragment_to_nav_slideshow"
+            app:destination="@id/nav_slideshow" />
+    </fragment>
 </navigation>

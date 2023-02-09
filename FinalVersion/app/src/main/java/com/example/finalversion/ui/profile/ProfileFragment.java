@@ -20,7 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -38,7 +37,12 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.finalversion.R;
-import com.example.finalversion.ui.statistics.StatisticsComponent;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -58,8 +62,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProfileFragment extends Fragment {
@@ -85,6 +90,11 @@ public class ProfileFragment extends Fragment {
     private TableLayout taskTable;
 
     private LinearLayout infoLayout;
+
+    private String currentUsername;
+    private ArrayList<String> users = new ArrayList<>();
+    private boolean dataReceived = false;
+    private Map<String, Object> tableData = new HashMap<>();
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -119,12 +129,58 @@ public class ProfileFragment extends Fragment {
         backgroundImageFile = new File(profileContext.getFilesDir(), "background_image.jpg");
         profileImageFile = new File(profileContext.getFilesDir(), "profile_image.jpg");
 
+        //Default Load Table
+        loadSelectedHabitsFromFileToVar(profileContext.getFilesDir());
+        taskTable.removeAllViews();
+        setTableHeader();
+        int sendDataInt = 1;
+        for (String hab : loadedHabits) {
+            ArrayList<String> idealDates = new ArrayList<String>();
+            int streakInt = 0;
+            int percentage = 0;
+
+            boolean habitual = getTaskType(profileContext.getFilesDir(), hab);
+            String days = getTaskData(profileContext.getFilesDir(), hab);
+            if(days != null){
+                ArrayList<String> daysArray = daysToDaysArray(days); //Days To Array
+                ArrayList<String> taskDates = getLogFile(profileContext.getFilesDir(), hab);
+                if (!taskDates.isEmpty()){
+                    idealDates = getIdealDates(taskDates, daysArray); //Perfect Performance
+                    streakInt = calculateStreak(idealDates, taskDates); //Streak
+                    percentage = calculatePercentage(idealDates, taskDates); //Percentage
+                }
+            }
+            int taskPoints = getTaskPoints(profileContext.getFilesDir(), hab);
+
+            tableData.put("task" + String.valueOf(sendDataInt), hab);
+            tableData.put("streak" + String.valueOf(sendDataInt), streakInt);
+            tableData.put("percentage" + String.valueOf(sendDataInt), percentage);
+            tableData.put("points" + String.valueOf(sendDataInt), taskPoints);
+            sendDataInt++;
+
+            setTableRow(hab, habitual, streakInt, percentage, taskPoints);
+        }
+        int oldPointsAllTime = getcurrentPointsAllTime(profileContext.getFilesDir());
+        int oldPointsMonth = getcurrentPointsMonth(profileContext.getFilesDir());
+        int oldPointsWeek = getcurrentPointsWeek(profileContext.getFilesDir());
+
+        tableData.put("weekly score", oldPointsWeek);
+        tableData.put("monthly score", oldPointsMonth);
+        tableData.put("alltime score", oldPointsAllTime);
+
+        setTableFooter(oldPointsAllTime, oldPointsMonth, oldPointsWeek);
+
         //Set Edit Profile Button
         final String[] listItems = new String[]{"Profile Picture", "Background Picture", "Username"};
         final AtomicInteger checkedItem = new AtomicInteger(0);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FirebaseApp.initializeApp(profileContext);
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                getData(db);
+                String temp1 = "test1";
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(profileContext);
                 builder.setTitle("Select which to change");
                 builder.setIcon(R.mipmap.ic_launcher);
@@ -162,18 +218,60 @@ public class ProfileFragment extends Fragment {
                                             String newUsername = input.getText().toString();
                                             username.setText(newUsername);
 
-                                            try {
-                                                FileOutputStream outputStream = getContext().openFileOutput("username.txt", Context.MODE_PRIVATE);
-                                                OutputStreamWriter writer = new OutputStreamWriter(outputStream);
-                                                writer.write(newUsername);
-                                                writer.close();
-                                                outputStream.close();
+                                            if (dataReceived == false){
+                                                AlertDialog.Builder fileAlreadyExsists = new AlertDialog.Builder(profileContext);
+                                                fileAlreadyExsists.setTitle("Please wait");
+                                                fileAlreadyExsists.setMessage("We are fetching the cloud data. Please wait until it is finished");
+                                                fileAlreadyExsists.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
 
-                                                getActivity().recreate();
-                                            } catch (FileNotFoundException e) {
-                                                e.printStackTrace();
-                                            } catch (IOException e) {
-                                                e.printStackTrace();
+                                                    }
+                                                });
+                                                fileAlreadyExsists.create();
+                                                AlertDialog alertDialog = fileAlreadyExsists.create();
+                                                alertDialog.show();
+                                                while(dataReceived == false)
+                                                {
+                                                    try {
+                                                        Thread.sleep(1000);
+                                                    } catch (InterruptedException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }
+
+                                            if (users.contains(newUsername)){
+                                                AlertDialog.Builder fileAlreadyExsists = new AlertDialog.Builder(profileContext);
+                                                fileAlreadyExsists.setTitle("Username taken");
+                                                fileAlreadyExsists.setMessage("This username is already in use. Please use another one.");
+                                                fileAlreadyExsists.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+
+                                                    }
+                                                });
+                                                fileAlreadyExsists.create();
+                                                AlertDialog alertDialog = fileAlreadyExsists.create();
+                                                alertDialog.show();
+                                            } else {
+                                                try {
+                                                    FileOutputStream outputStream = getContext().openFileOutput("username", Context.MODE_PRIVATE);
+                                                    OutputStreamWriter writer = new OutputStreamWriter(outputStream);
+                                                    writer.write(newUsername);
+                                                    writer.close();
+                                                    outputStream.close();
+
+                                                    getActivity().recreate();
+                                                } catch (FileNotFoundException e) {
+                                                    e.printStackTrace();
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                                sendData(db, newUsername, oldPointsWeek, oldPointsMonth, oldPointsAllTime);
+                                                deleteData(db, currentUsername);
+                                                sendTableData(db, newUsername);
+                                                String temp2 = "test2";
                                             }
 
                                         }
@@ -182,7 +280,6 @@ public class ProfileFragment extends Fragment {
                             AlertDialog usernameDialog = usernameBuilder.create();
                             usernameDialog.show();
                         }
-
                         reloadPage = true;
                     }
 
@@ -212,36 +309,6 @@ public class ProfileFragment extends Fragment {
                 alertDialog.show();
             }
         });
-
-        //Default Load Table
-        loadSelectedHabitsFromFileToVar(profileContext.getFilesDir());
-        taskTable.removeAllViews();
-        setTableHeader();
-        for (String hab : loadedHabits) {
-            ArrayList<String> idealDates = new ArrayList<String>();
-            int streakInt = 0;
-            int percentage = 0;
-
-            boolean habitual = getTaskType(profileContext.getFilesDir(), hab);
-            String days = getTaskData(profileContext.getFilesDir(), hab);
-            if(days != null){
-                ArrayList<String> daysArray = daysToDaysArray(days); //Days To Array
-                ArrayList<String> taskDates = getLogFile(profileContext.getFilesDir(), hab);
-                if (!taskDates.isEmpty()){
-                    idealDates = getIdealDates(taskDates, daysArray); //Perfect Performance
-                    streakInt = calculateStreak(idealDates, taskDates); //Streak
-                    percentage = calculatePercentage(idealDates, taskDates); //Percentage
-                }
-            }
-            int taskPoints = getTaskPoints(profileContext.getFilesDir(), hab);
-
-            setTableRow(hab, habitual, streakInt, percentage, taskPoints);
-        }
-        int oldPointsAllTime = getcurrentPointsAllTime(profileContext.getFilesDir());
-        int oldPointsMonth = getcurrentPointsMonth(profileContext.getFilesDir());
-        int oldPointsWeek = getcurrentPointsWeek(profileContext.getFilesDir());
-
-        setTableFooter(oldPointsAllTime, oldPointsMonth, oldPointsWeek);
 
         //Update Table
         findTasks(profileContext.getFilesDir());
@@ -276,6 +343,7 @@ public class ProfileFragment extends Fragment {
                         taskTable.removeAllViews();
                         StringBuilder tasksToWrite = new StringBuilder();
                         setTableHeader();
+                        int sendDataInt = 1;
                         for (int i = 0; i < checkedItemsTable.length; i++) {
                             if (checkedItemsTable[i]){
                                 ArrayList<String> idealDates = new ArrayList<String>();
@@ -294,6 +362,11 @@ public class ProfileFragment extends Fragment {
                                 int taskPoints = getTaskPoints(profileContext.getFilesDir(), tasks.get(i));
 
                                 setTableRow(tasks.get(i), habitual, streakInt, percentage, taskPoints);
+                                tableData.put("task" + String.valueOf(sendDataInt), tasks.get(i));
+                                tableData.put("streak" + String.valueOf(sendDataInt), streakInt);
+                                tableData.put("percentage" + String.valueOf(sendDataInt), percentage);
+                                tableData.put("points" + String.valueOf(sendDataInt), taskPoints);
+                                sendDataInt++;
 
                                 tasksToWrite.append(tasks.get(i) + "\n");
                             }
@@ -301,6 +374,14 @@ public class ProfileFragment extends Fragment {
                         int oldPointsAllTime = getcurrentPointsAllTime(profileContext.getFilesDir());
                         int oldPointsMonth = getcurrentPointsMonth(profileContext.getFilesDir());
                         int oldPointsWeek = getcurrentPointsWeek(profileContext.getFilesDir());
+
+                        tableData.put("weekly score", oldPointsWeek);
+                        tableData.put("monthly score", oldPointsMonth);
+                        tableData.put("alltime score", oldPointsAllTime);
+
+                        FirebaseApp.initializeApp(profileContext);
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                        sendTableData(db, currentUsername);
 
                         setTableFooter(oldPointsAllTime, oldPointsMonth, oldPointsWeek);
 
@@ -342,6 +423,107 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    private void sendTableData(FirebaseFirestore db, String user){
+        db.collection("profiletable")
+                .document(user)
+                .set(tableData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //Log.d("TAG", "DocumentSnapshot successfully written!");
+                        String temp = "alma";
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        String temp2 = "korte";
+                    }
+                });
+    }
+
+    private void sendData(FirebaseFirestore db, String usernameLocal, int weeklyScoreLocal, int monthlyScoreLocal, int alltimeScoreLocal){
+        Map<String, Object> data = new HashMap<>();
+        data.put("username", usernameLocal);
+        data.put("weeklyScore", weeklyScoreLocal);
+        data.put("monthlyScore", monthlyScoreLocal);
+        data.put("alltimeScore", alltimeScoreLocal);
+        db.collection("scores")
+                .document(usernameLocal)
+                .set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //Log.d("TAG", "DocumentSnapshot successfully written!");
+                        String temp = "alma";
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        String temp2 = "korte";
+                    }
+                });
+    }
+
+    private void deleteData(FirebaseFirestore db, String oldUser){
+        db.collection("scores").document(oldUser)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        String success = "success delete";
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //Log.w(TAG, "Error deleting document", e);
+                        String fail = "fail delete";
+                    }
+                });
+        db.collection("profiletable").document(oldUser)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        //Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        String success = "success delete";
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        //Log.w(TAG, "Error deleting document", e);
+                        String fail = "fail delete";
+                    }
+                });
+    }
+
+    private void getData(FirebaseFirestore db){
+        // Get all documents from the collection
+        db.collection("scores")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                            //scores.add(documentSnapshot.getData());
+                            String user = documentSnapshot.getString("username");
+                            users.add(user);
+                        }
+                        dataReceived = true;
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        String temp = "test";
+                    }
+                });
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -364,6 +546,7 @@ public class ProfileFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
+
         } else if (requestCode == SELECT_PROFILE_IMAGE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             profileImageUri[0] = data.getData();
 
@@ -418,7 +601,7 @@ public class ProfileFragment extends Fragment {
 
         //load username
         try {
-            FileInputStream inputStream = getContext().openFileInput("username.txt");
+            FileInputStream inputStream = getContext().openFileInput("username");
             InputStreamReader reader = new InputStreamReader(inputStream);
             StringBuilder usernameBuilder = new StringBuilder();
             int character;
@@ -428,6 +611,7 @@ public class ProfileFragment extends Fragment {
             reader.close();
             inputStream.close();
             String loadedUsername = usernameBuilder.toString();
+            currentUsername = loadedUsername;
             username.setText(loadedUsername);
         } catch (IOException e) {
             e.printStackTrace();
@@ -505,34 +689,96 @@ public class ProfileFragment extends Fragment {
         int primaryColor = arr.getColor(0, -1);
 
         TextView cell1 = new TextView(getContext());
-        cell1.setText("User Score");
+        cell1.setText("Weekly Score");
         cell1.setGravity(Gravity.CENTER);
         cell1.setTextColor(primaryColor);
         cell1.setTypeface(null, Typeface.BOLD);
         row.addView(cell1);
 
         TextView cell2 = new TextView(getContext());
-        cell2.setText(Integer.toString(weeklyPoints));
+        cell2.setText("");
         cell2.setGravity(Gravity.CENTER);
         cell2.setTextColor(primaryColor);
         cell2.setTypeface(null, Typeface.BOLD);
         row.addView(cell2);
 
         TextView cell3 = new TextView(getContext());
-        cell3.setText(Integer.toString(monthlyPoints));
+        cell3.setText("");
         cell3.setGravity(Gravity.CENTER);
         cell3.setTextColor(primaryColor);
         cell3.setTypeface(null, Typeface.BOLD);
         row.addView(cell3);
 
         TextView cell4 = new TextView(getContext());
-        cell4.setText(Integer.toString(userPoints));
+        cell4.setText(Integer.toString(weeklyPoints));
         cell4.setGravity(Gravity.CENTER);
         cell4.setTextColor(primaryColor);
         cell4.setTypeface(null, Typeface.BOLD);
         row.addView(cell4);
 
         taskTable.addView(row);
+
+        TableRow row2 = new TableRow(getContext());
+        TextView cell12 = new TextView(getContext());
+        cell12.setText("Monthly Score");
+        cell12.setGravity(Gravity.CENTER);
+        cell12.setTextColor(primaryColor);
+        cell12.setTypeface(null, Typeface.BOLD);
+        row2.addView(cell12);
+
+        TextView cell22 = new TextView(getContext());
+        cell22.setText("");
+        cell22.setGravity(Gravity.CENTER);
+        cell22.setTextColor(primaryColor);
+        cell22.setTypeface(null, Typeface.BOLD);
+        row2.addView(cell22);
+
+        TextView cell32 = new TextView(getContext());
+        cell32.setText("");
+        cell32.setGravity(Gravity.CENTER);
+        cell32.setTextColor(primaryColor);
+        cell32.setTypeface(null, Typeface.BOLD);
+        row2.addView(cell32);
+
+        TextView cell42 = new TextView(getContext());
+        cell42.setText(Integer.toString(monthlyPoints));
+        cell42.setGravity(Gravity.CENTER);
+        cell42.setTextColor(primaryColor);
+        cell42.setTypeface(null, Typeface.BOLD);
+        row2.addView(cell42);
+
+        taskTable.addView(row2);
+
+        TableRow row3 = new TableRow(getContext());
+        TextView cell13 = new TextView(getContext());
+        cell13.setText("All-Time Score");
+        cell13.setGravity(Gravity.CENTER);
+        cell13.setTextColor(primaryColor);
+        cell13.setTypeface(null, Typeface.BOLD);
+        row3.addView(cell13);
+
+        TextView cell23 = new TextView(getContext());
+        cell23.setText("");
+        cell23.setGravity(Gravity.CENTER);
+        cell23.setTextColor(primaryColor);
+        cell23.setTypeface(null, Typeface.BOLD);
+        row3.addView(cell23);
+
+        TextView cell33 = new TextView(getContext());
+        cell33.setText("");
+        cell33.setGravity(Gravity.CENTER);
+        cell33.setTextColor(primaryColor);
+        cell33.setTypeface(null, Typeface.BOLD);
+        row3.addView(cell33);
+
+        TextView cell43 = new TextView(getContext());
+        cell43.setText(Integer.toString(userPoints));
+        cell43.setGravity(Gravity.CENTER);
+        cell43.setTextColor(primaryColor);
+        cell43.setTypeface(null, Typeface.BOLD);
+        row3.addView(cell43);
+
+        taskTable.addView(row3);
     }
 
     @SuppressLint("SetTextI18n")
