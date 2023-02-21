@@ -3,6 +3,7 @@ package com.example.finalversion;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -48,7 +51,7 @@ import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
-    //TODO: Quick lookup for naming scheme
+    //TODO: Quick lookup for naming schemes and file names
     //Task Naming scheme: WorkoutTask.txt
     //Subtask Naming scheme: SitupsWorkoutSubtazk.txt
     //CalendarSelectedHabits: TrackedHabits.txt
@@ -58,10 +61,11 @@ public class MainActivity extends AppCompatActivity {
     //Profile Picture: profile_image.jpg
     //Username: username.txt
     //ProfileSelectedHabits: DisplayedHabits.txt
-    //Task Point File: WorkoutPointcard.txt
+    //Task Point File naming scheme: WorkoutPointcard.txt
     //Weekly Point File: WeeklyScore.txt
     //Monthly Point File: MonthlyScore.txt
     //AllTime Point File: AllTimeScore.txt
+    //Previous name passed to TaskSettings on new task creation: honorificabilitudinitatibusz
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
@@ -69,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
 
     private MenuItem darkMode;
     private String currentAppTheme;
+
+    private boolean firstOpen = true;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -121,6 +127,24 @@ public class MainActivity extends AppCompatActivity {
         TextView username = header.findViewById(R.id.textView);
         generateUsername();
         setHeaderMain(backgroundImage, profileImage, username);
+
+        //Welcome Tutorial
+        if (firstOpen){
+            AlertDialog.Builder warning = new AlertDialog.Builder(this);
+            warning.setIcon(R.drawable.ic_notification_icon);
+            warning.setTitle("Welcome to Rise");
+            String message = "Press the <b>'+'</b> button at the <b>bottom right</b> to add a new task <br> <br> Press the <b>three lines</b> on the <b>top left</b> to open the navigation menu <br><br>On the <i><b>'Calendar'</b></i> page you can track your progress and schedule future tasks <br>On the <i><b>'Leaderboard'</i></b> page you can compete with other users, and view their profiles <br>On the <i><b>'Statistics'</i></b> page, you can view a detailed breakdown of your tasks <br>While on the <i><b>'Profile'</i></b> page, you can set which tasks will be publicly viewable to other users from the leaderboard <br> <br> <b>Thank you for downloading the app, and good luck on your journey </b> <br> <br><b><i>We are what we repeatedly do. Excellence, then, is not an act, but a habit.</b></i> <br> - <b>Will Durant</b>";
+            warning.setMessage(Html.fromHtml(message));
+            warning.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            warning.create();
+            AlertDialog alertDialog = warning.create();
+            alertDialog.show();
+        }
 
         createPointcardFiles();
 
@@ -302,6 +326,8 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else {
+            firstOpen = false;
         }
     }
 

@@ -64,6 +64,9 @@ public class SubtaskSettingsFragment extends Fragment {
         EditText nameEditText = view.findViewById(R.id.subTaskNameInput);
         EditText incrementEditText = view.findViewById(R.id.subTaskIncrementInput);
         Button finishTask = view.findViewById(R.id.add_subtask);
+        if (!previousName.equals("honorificabilitudinitatibusz")){
+            nameEditText.setText(previousName);
+        }
 
         finishTask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +75,15 @@ public class SubtaskSettingsFragment extends Fragment {
                 String taskIncrementString = String.valueOf(incrementEditText.getText());
                 int taskIncrement;
                 StringBuilder blanks = new StringBuilder();
+
+                //check for symbols
+                if (taskName.matches(".*\\W.*")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(cont);
+                    builder.setMessage("Symbols are not allowed in the input.")
+                            .setPositiveButton("OK", null)
+                            .create()
+                            .show();
+                } else {
 
                 //Make some fields mandatory and correct formatting
                 if (taskName.equals("")) {blanks.append("Task Name \n");}
@@ -134,7 +146,7 @@ public class SubtaskSettingsFragment extends Fragment {
                     warning.create();
                     AlertDialog alertDialog = warning.create();
                     alertDialog.show();
-                }
+                }}
             }
         });
     }

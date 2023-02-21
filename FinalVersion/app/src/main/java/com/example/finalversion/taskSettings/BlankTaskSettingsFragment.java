@@ -153,6 +153,10 @@ public class BlankTaskSettingsFragment extends Fragment {
         TextView selectedDaysTextView = view.findViewById(R.id.selectedItemPreview);
         //SwitchCompat notificationSwitch = view.findViewById(R.id.notification_switch);
         //EditText notificationTimeEditText = view.findViewById(R.id.notification_time);
+        if (!previousName.equals("honorificabilitudinitatibusz")){
+            nameEditText.setText(previousName);
+        }
+        String temp = "test";
 
         finishTask.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -167,6 +171,15 @@ public class BlankTaskSettingsFragment extends Fragment {
                 //boolean taskNotificationToggle = notificationSwitch.isChecked();
                 //String taskNotificationTime = String.valueOf(notificationTimeEditText.getText());
                 StringBuilder blanks = new StringBuilder();
+
+                //check for symbols
+                if (taskName.matches(".*\\W.*")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(cont);
+                    builder.setMessage("Symbols are not allowed in the input.")
+                            .setPositiveButton("OK", null)
+                            .create()
+                            .show();
+                } else {
 
                 //Make some fields mandatory and correct formatting
                 if (taskName.equals("")) {blanks.append("Task Name \n");}
@@ -268,7 +281,7 @@ public class BlankTaskSettingsFragment extends Fragment {
                     warning.create();
                     AlertDialog alertDialog = warning.create();
                     alertDialog.show();
-                }
+                }}
             }
         });
     }

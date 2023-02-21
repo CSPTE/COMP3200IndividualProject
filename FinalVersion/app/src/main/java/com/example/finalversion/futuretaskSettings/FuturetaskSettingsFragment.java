@@ -93,6 +93,15 @@ public class FuturetaskSettingsFragment extends Fragment {
                 String taskColor = selectedColor.getHex();
                 StringBuilder blanks = new StringBuilder();
 
+                //check for symbols
+                if (taskName.matches(".*\\W.*")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(cont);
+                    builder.setMessage("Symbols are not allowed in the input.")
+                            .setPositiveButton("OK", null)
+                            .create()
+                            .show();
+                } else {
+
                 //Make some fields mandatory and correct formatting
                 if (taskName.equals("")) {blanks.append("Task Name \n");}
                 if (taskIncrementString.equals("")) {blanks.append("Number Of Increments \n");
@@ -150,7 +159,7 @@ public class FuturetaskSettingsFragment extends Fragment {
                     warning.create();
                     AlertDialog alertDialog = warning.create();
                     alertDialog.show();
-                }
+                }}
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.example.finalversion.ui.statistics;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ public class StatisticsComponent extends ConstraintLayout {
     private String type;
     private boolean isItHabitual = false;
     private String color;
+    private String colorHex;
     private String increment;
     private String days = null;
     private ArrayList<String> daysArray = new ArrayList<String>();
@@ -123,6 +125,7 @@ public class StatisticsComponent extends ConstraintLayout {
         typeTextView.setText(type);
         incrementTextView.setText(increment);
         colorTextView.setText(color);
+        colorTextView.setTextColor(Color.parseColor(colorHex));
 
         //Days
         StatisticsLineComponent daysLine = new StatisticsLineComponent(cont, "Days:");
@@ -152,6 +155,7 @@ public class StatisticsComponent extends ConstraintLayout {
         typeTextView.setText(type);
         incrementTextView.setText(increment);
         colorTextView.setText(color);
+        colorTextView.setTextColor(Color.parseColor(colorHex));
 
         //Subtasks
         StatisticsLineComponent subtasksLine = new StatisticsLineComponent(cont, "Subtasks:");
@@ -167,6 +171,7 @@ public class StatisticsComponent extends ConstraintLayout {
         typeTextView.setText(type);
         incrementTextView.setText(increment);
         colorTextView.setText(color);
+        colorTextView.setTextColor(Color.parseColor(colorHex));
 
         //Days
         StatisticsLineComponent daysLine = new StatisticsLineComponent(cont, "Days:");
@@ -182,6 +187,7 @@ public class StatisticsComponent extends ConstraintLayout {
         typeTextView.setText(type);
         incrementTextView.setText(increment);
         colorTextView.setText(color);
+        colorTextView.setTextColor(Color.parseColor(colorHex));
     }
 
     private void setFutureView(Context cont){
@@ -191,6 +197,7 @@ public class StatisticsComponent extends ConstraintLayout {
         typeTextView.setText(type);
         incrementTextView.setText(increment);
         colorTextView.setText(color);
+        colorTextView.setTextColor(Color.parseColor(colorHex));
 
         //Subtasks
         StatisticsLineComponent subtasksLine = new StatisticsLineComponent(cont, "Subtasks:");
@@ -211,6 +218,7 @@ public class StatisticsComponent extends ConstraintLayout {
         typeTextView.setText(type);
         incrementTextView.setText(increment);
         colorTextView.setText(color);
+        colorTextView.setTextColor(Color.parseColor(colorHex));
 
         //Due Date
         StatisticsLineComponent dueLine = new StatisticsLineComponent(cont, "Due On:");
@@ -262,6 +270,7 @@ public class StatisticsComponent extends ConstraintLayout {
                             if (line.matches("Color Selected =.*")){
                                 String[] value = line.split("=");
                                 String tempColor = "#" + value[1];
+                                colorHex = tempColor;
                                 color = turnHexToString(tempColor);
                             }
                             line = br.readLine();
@@ -405,6 +414,7 @@ public class StatisticsComponent extends ConstraintLayout {
                             } else if (line.matches("Color Selected =.*")){
                                 String[] value = line.split("=");
                                 String tempColor = "#" + value[1];
+                                colorHex = tempColor;
                                 color = turnHexToString(tempColor);
                             } else if (line.matches("Habit Toggled =.*")){
                                 String[] value = line.split("=");

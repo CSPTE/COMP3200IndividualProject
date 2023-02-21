@@ -133,6 +133,9 @@ public class HabitSubtaskSettingsFragment extends Fragment {
         EditText incrementEditText = view.findViewById(R.id.habitSubTaskIncrementInput);
         TextView selectedDaysTextView = view.findViewById(R.id.selectedItemPreviewSubtask);
         Button finishTask = view.findViewById(R.id.add_habit_subtask);
+        if (!previousName.equals("honorificabilitudinitatibusz")){
+            nameEditText.setText(previousName);
+        }
 
         finishTask.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +147,15 @@ public class HabitSubtaskSettingsFragment extends Fragment {
                 StringBuilder blanks = new StringBuilder();
 
                 getParentDays(cont.getFilesDir());
+
+                //check for symbols
+                if (taskName.matches(".*\\W.*")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(cont);
+                    builder.setMessage("Symbols are not allowed in the input.")
+                            .setPositiveButton("OK", null)
+                            .create()
+                            .show();
+                } else {
 
                 //Make some fields mandatory and correct formatting
                 if (taskName.equals("")) {blanks.append("Task Name \n");}
@@ -228,7 +240,7 @@ public class HabitSubtaskSettingsFragment extends Fragment {
                     warning.create();
                     AlertDialog alertDialog = warning.create();
                     alertDialog.show();
-                }
+                }}
             }
         });
     }

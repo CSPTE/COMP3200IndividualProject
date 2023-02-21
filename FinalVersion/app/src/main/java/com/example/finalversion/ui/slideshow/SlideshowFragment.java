@@ -525,6 +525,16 @@ public class SlideshowFragment extends Fragment implements LeaderboardAdapter.On
                         String temp2 = "korte";
                     }
                 });
+
+        DocumentReference documentRef = db.collection("profiletable").document(usernameLocal);
+
+        documentRef.update("weekly score", weeklyScoreLocal, "monthly score", monthlyScoreLocal, "alltime score", alltimeScoreLocal)
+                .addOnSuccessListener(aVoid -> {
+                    // Update successful
+                })
+                .addOnFailureListener(e -> {
+                    // Update failed
+                });
     }
 
     private void getAllUsersTest() {
