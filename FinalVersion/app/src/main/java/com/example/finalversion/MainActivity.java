@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         generateUsername();
         setHeaderMain(backgroundImage, profileImage, username);
 
+        /*
         //Welcome Tutorial
         if (firstOpen){
             AlertDialog.Builder warning = new AlertDialog.Builder(this);
@@ -145,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog alertDialog = warning.create();
             alertDialog.show();
         }
+        */
 
         createPointcardFiles();
 

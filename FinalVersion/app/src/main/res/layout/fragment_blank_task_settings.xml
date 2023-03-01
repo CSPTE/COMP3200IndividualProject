@@ -126,7 +126,7 @@
             <LinearLayout
                 android:id="@+id/habit_toggle"
                 android:layout_width="348sp"
-                android:layout_height="66sp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingTop="5sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -138,12 +138,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
-                    android:minWidth="40sp"
-                    android:minHeight="40sp"
                     android:text="Habit"
                     android:textAlignment="textStart"
                     android:textSize="17sp"
                     android:textStyle="bold"
+                    android:paddingRight="25sp"
                     app:key="habit"
                     app:title="Habitual"
                     tools:ignore="TouchTargetSizeCheck" />

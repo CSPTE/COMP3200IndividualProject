@@ -1,7 +1,9 @@
 package com.example.finalversion.ui.home;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -33,6 +36,7 @@ public class HomeFragment extends Fragment {
 
     private ArrayList<TaskComponent> tasks = new ArrayList<TaskComponent>();
     private LinearLayout tasksLayout;
+    private boolean taskExists = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -86,6 +90,24 @@ public class HomeFragment extends Fragment {
 */
 
         addTasks(homeContext.getFilesDir());
+
+        if (!taskExists){
+            //Welcome Tutorial
+                AlertDialog.Builder warning = new AlertDialog.Builder(homeContext);
+                warning.setIcon(R.drawable.ic_notification_icon);
+                warning.setTitle("Welcome to Rise");
+                String message = "Press the <b>'+'</b> button at the <b>bottom right</b> to add a new task <br> <br> Press the <b>three lines</b> on the <b>top left</b> to open the navigation menu <br><br>On the <i><b>'Calendar'</b></i> page you can track your progress and schedule future tasks <br>On the <i><b>'Leaderboard'</i></b> page you can compete with other users, and view their profiles <br>On the <i><b>'Statistics'</i></b> page, you can view a detailed breakdown of your tasks <br>While on the <i><b>'Profile'</i></b> page, you can set which tasks will be publicly viewable to other users from the leaderboard <br> <br> <b>Thank you for downloading the app, and good luck on your journey </b> <br> <br><b><i>We are what we repeatedly do. Excellence, then, is not an act, but a habit.</b></i> <br> - <b>Will Durant</b>";
+                warning.setMessage(Html.fromHtml(message));
+                warning.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                warning.create();
+                AlertDialog alertDialog = warning.create();
+                alertDialog.show();
+        }
 
     }
 
@@ -148,6 +170,7 @@ public class HomeFragment extends Fragment {
                 String fileName = file.getName() + ".txt";
                 if ((fileName.matches(".*Task.txt")) || (fileName.matches(".*FutureTakk.txt"))){
                     //foundFiles.append(fileName);
+                    taskExists = true;
                     try {
                         BufferedReader br = new BufferedReader(new FileReader(file));
                         String line = br.readLine();
